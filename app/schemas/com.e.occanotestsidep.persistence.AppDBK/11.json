@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "02ab21280c2bdf8400ae56854e974c55",
+    "identityHash": "ba3afd511d922bf142f1e4568a216f32",
     "entities": [
       {
         "tableName": "cylinders",
@@ -602,12 +602,12 @@
       },
       {
         "tableName": "statuses",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`statusId` INTEGER NOT NULL, `cylinder_num` INTEGER NOT NULL, `mainTitle` TEXT, `subTitle` TEXT, `lessContent` TEXT, `moreContent` TEXT, `KindOfDanger` INTEGER NOT NULL, `kindOfAcknowledge` INTEGER NOT NULL, `timeStampOfStatus` TEXT, PRIMARY KEY(`statusId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`statusId` TEXT NOT NULL, `cylinder_num` INTEGER NOT NULL, `mainTitle` TEXT, `subTitle` TEXT, `lessContent` TEXT, `moreContent` TEXT, `KindOfDanger` INTEGER NOT NULL, `kindOfAcknowledge` INTEGER NOT NULL, `timeStampOfStatus` TEXT, PRIMARY KEY(`statusId`))",
         "fields": [
           {
             "fieldPath": "statusId",
             "columnName": "statusId",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -704,7 +704,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '02ab21280c2bdf8400ae56854e974c55')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba3afd511d922bf142f1e4568a216f32')"
     ]
   }
 }

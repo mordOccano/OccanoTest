@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
 import com.e.occanotestsidep.api.ApiService
 import com.e.occanotestsidep.api.MyRetrofitBuilder
+import com.e.occanotestsidep.api.responses.AlertsListSearchResponse
 import com.e.occanotestsidep.api.responses.DashboardListSearchResponse
 import com.e.occanotestsidep.persistence.AppDBK
 import com.e.occanotestsidep.persistence.StatusDao
@@ -45,8 +46,7 @@ object Repository
                 result.value = DataState.data(
                     null,
                     DashboardViewState(
-                        cylinders = response.body.cylToList(),
-                        statuses = response.body.statusToList()
+                        cylinders = response.body.cylToList()
                     )
                 )
             }
@@ -55,14 +55,14 @@ object Repository
     }
 
     fun getStatuses(): LiveData<DataState<DashboardViewState>> {
-        return object: NetworkBoundResource<DashboardListSearchResponse, DashboardViewState>(){
+        return object: NetworkBoundResource<AlertsListSearchResponse, DashboardViewState>(){
 
 
-            override fun createCall(): LiveData<GenericApiResponse<DashboardListSearchResponse>> {
-                return MyRetrofitBuilder.apiService.getCylinders()
+            override fun createCall(): LiveData<GenericApiResponse<AlertsListSearchResponse>> {
+                return MyRetrofitBuilder.apiService.getAlerts()
             }
 
-            override fun handleApiSuccessResponse(response: ApiSuccessResponse<DashboardListSearchResponse>) {
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<AlertsListSearchResponse>) {
                 result.value = DataState.data(
                     null,
                     DashboardViewState(

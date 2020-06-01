@@ -52,7 +52,7 @@ class StatusSearchResponse(
         }
 
         return Status(
-            statusId,
+            statusId.toString(),
             cylinder_num,
             statusMainTitle,
             statusSubTitle,
