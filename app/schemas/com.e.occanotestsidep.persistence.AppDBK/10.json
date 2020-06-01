@@ -1,0 +1,498 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 10,
+    "identityHash": "f510b92077378cd6a148caf0bf678744",
+    "entities": [
+      {
+        "tableName": "cylinders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cylinder_num` INTEGER NOT NULL, `rpm_cyl_num` INTEGER NOT NULL, `rpm_name` TEXT NOT NULL, `rpm_value` REAL NOT NULL, `rpm_unit` TEXT NOT NULL, `rpm_maxValue` REAL NOT NULL, `rpm_isHealth` INTEGER NOT NULL, `exhaust_temperature_cyl_num` INTEGER NOT NULL, `exhaust_temperature_name` TEXT NOT NULL, `exhaust_temperature_value` REAL NOT NULL, `exhaust_temperature_unit` TEXT NOT NULL, `exhaust_temperature_maxValue` REAL NOT NULL, `exhaust_temperature_isHealth` INTEGER NOT NULL, `load_cyl_num` INTEGER NOT NULL, `load_name` TEXT NOT NULL, `load_value` REAL NOT NULL, `load_unit` TEXT NOT NULL, `load_maxValue` REAL NOT NULL, `load_isHealth` INTEGER NOT NULL, `firing_pressure_cyl_num` INTEGER NOT NULL, `firing_pressure_name` TEXT NOT NULL, `firing_pressure_value` REAL NOT NULL, `firing_pressure_unit` TEXT NOT NULL, `firing_pressure_maxValue` REAL NOT NULL, `firing_pressure_isHealth` INTEGER NOT NULL, `scavenging_pressure_cyl_num` INTEGER NOT NULL, `scavenging_pressure_name` TEXT NOT NULL, `scavenging_pressure_value` REAL NOT NULL, `scavenging_pressure_unit` TEXT NOT NULL, `scavenging_pressure_maxValue` REAL NOT NULL, `scavenging_pressure_isHealth` INTEGER NOT NULL, `compression_pressure_cyl_num` INTEGER NOT NULL, `compression_pressure_name` TEXT NOT NULL, `compression_pressure_value` REAL NOT NULL, `compression_pressure_unit` TEXT NOT NULL, `compression_pressure_maxValue` REAL NOT NULL, `compression_pressure_isHealth` INTEGER NOT NULL, `break_power_cyl_num` INTEGER NOT NULL, `break_power_name` TEXT NOT NULL, `break_power_value` REAL NOT NULL, `break_power_unit` TEXT NOT NULL, `break_power_maxValue` REAL NOT NULL, `break_power_isHealth` INTEGER NOT NULL, `imep_cyl_num` INTEGER NOT NULL, `imep_name` TEXT NOT NULL, `imep_value` REAL NOT NULL, `imep_unit` TEXT NOT NULL, `imep_maxValue` REAL NOT NULL, `imep_isHealth` INTEGER NOT NULL, `Torque_engine_cyl_num` INTEGER NOT NULL, `Torque_engine_name` TEXT NOT NULL, `Torque_engine_value` REAL NOT NULL, `Torque_engine_unit` TEXT NOT NULL, `Torque_engine_maxValue` REAL NOT NULL, `Torque_engine_isHealth` INTEGER NOT NULL, `bmep_cyl_num` INTEGER NOT NULL, `bmep_name` TEXT NOT NULL, `bmep_value` REAL NOT NULL, `bmep_unit` TEXT NOT NULL, `bmep_maxValue` REAL NOT NULL, `bmep_isHealth` INTEGER NOT NULL, `injection_timing_cyl_num` INTEGER NOT NULL, `injection_timing_name` TEXT NOT NULL, `injection_timing_value` REAL NOT NULL, `injection_timing_unit` TEXT NOT NULL, `injection_timing_maxValue` REAL NOT NULL, `injection_timing_isHealth` INTEGER NOT NULL, `fuel_flow_rate_cyl_num` INTEGER NOT NULL, `fuel_flow_rate_name` TEXT NOT NULL, `fuel_flow_rate_value` REAL NOT NULL, `fuel_flow_rate_unit` TEXT NOT NULL, `fuel_flow_rate_maxValue` REAL NOT NULL, `fuel_flow_rate_isHealth` INTEGER NOT NULL, PRIMARY KEY(`cylinder_num`))",
+        "fields": [
+          {
+            "fieldPath": "numOfCylInEngine",
+            "columnName": "cylinder_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.cyl_num",
+            "columnName": "rpm_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.name",
+            "columnName": "rpm_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.value",
+            "columnName": "rpm_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.unit",
+            "columnName": "rpm_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.maxValue",
+            "columnName": "rpm_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm.isHealth",
+            "columnName": "rpm_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.cyl_num",
+            "columnName": "exhaust_temperature_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.name",
+            "columnName": "exhaust_temperature_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.value",
+            "columnName": "exhaust_temperature_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.unit",
+            "columnName": "exhaust_temperature_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.maxValue",
+            "columnName": "exhaust_temperature_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature.isHealth",
+            "columnName": "exhaust_temperature_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.cyl_num",
+            "columnName": "load_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.name",
+            "columnName": "load_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.value",
+            "columnName": "load_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.unit",
+            "columnName": "load_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.maxValue",
+            "columnName": "load_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load.isHealth",
+            "columnName": "load_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.cyl_num",
+            "columnName": "firing_pressure_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.name",
+            "columnName": "firing_pressure_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.value",
+            "columnName": "firing_pressure_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.unit",
+            "columnName": "firing_pressure_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.maxValue",
+            "columnName": "firing_pressure_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure.isHealth",
+            "columnName": "firing_pressure_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.cyl_num",
+            "columnName": "scavenging_pressure_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.name",
+            "columnName": "scavenging_pressure_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.value",
+            "columnName": "scavenging_pressure_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.unit",
+            "columnName": "scavenging_pressure_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.maxValue",
+            "columnName": "scavenging_pressure_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure.isHealth",
+            "columnName": "scavenging_pressure_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.cyl_num",
+            "columnName": "compression_pressure_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.name",
+            "columnName": "compression_pressure_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.value",
+            "columnName": "compression_pressure_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.unit",
+            "columnName": "compression_pressure_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.maxValue",
+            "columnName": "compression_pressure_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure.isHealth",
+            "columnName": "compression_pressure_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.cyl_num",
+            "columnName": "break_power_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.name",
+            "columnName": "break_power_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.value",
+            "columnName": "break_power_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.unit",
+            "columnName": "break_power_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.maxValue",
+            "columnName": "break_power_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power.isHealth",
+            "columnName": "break_power_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.cyl_num",
+            "columnName": "imep_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.name",
+            "columnName": "imep_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.value",
+            "columnName": "imep_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.unit",
+            "columnName": "imep_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.maxValue",
+            "columnName": "imep_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep.isHealth",
+            "columnName": "imep_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.cyl_num",
+            "columnName": "Torque_engine_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.name",
+            "columnName": "Torque_engine_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.value",
+            "columnName": "Torque_engine_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.unit",
+            "columnName": "Torque_engine_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.maxValue",
+            "columnName": "Torque_engine_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine.isHealth",
+            "columnName": "Torque_engine_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.cyl_num",
+            "columnName": "bmep_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.name",
+            "columnName": "bmep_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.value",
+            "columnName": "bmep_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.unit",
+            "columnName": "bmep_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.maxValue",
+            "columnName": "bmep_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep.isHealth",
+            "columnName": "bmep_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.cyl_num",
+            "columnName": "injection_timing_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.name",
+            "columnName": "injection_timing_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.value",
+            "columnName": "injection_timing_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.unit",
+            "columnName": "injection_timing_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.maxValue",
+            "columnName": "injection_timing_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing.isHealth",
+            "columnName": "injection_timing_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.cyl_num",
+            "columnName": "fuel_flow_rate_cyl_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.name",
+            "columnName": "fuel_flow_rate_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.value",
+            "columnName": "fuel_flow_rate_value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.unit",
+            "columnName": "fuel_flow_rate_unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.maxValue",
+            "columnName": "fuel_flow_rate_maxValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate.isHealth",
+            "columnName": "fuel_flow_rate_isHealth",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cylinder_num"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "gauges",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `gaugename` TEXT NOT NULL, `gauge_value` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "gaugename",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "gauge_value",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f510b92077378cd6a148caf0bf678744')"
+    ]
+  }
+}

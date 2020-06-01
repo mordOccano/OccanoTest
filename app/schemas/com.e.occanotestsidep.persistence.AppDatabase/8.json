@@ -1,0 +1,138 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 8,
+    "identityHash": "2bc56dccfecf866e1a15fa5bec3d2c8a",
+    "entities": [
+      {
+        "tableName": "cylinders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cylinder_num` INTEGER NOT NULL, `rpm` TEXT NOT NULL, `exhaust_temperature` TEXT NOT NULL, `load` TEXT NOT NULL, `firing_pressure` TEXT NOT NULL, `scavenging_pressure` TEXT NOT NULL, `compression_pressure` TEXT NOT NULL, `break_power` TEXT NOT NULL, `imep` TEXT NOT NULL, `Torque_engine` TEXT NOT NULL, `bmep` TEXT NOT NULL, `injection_timing` TEXT NOT NULL, `fuel_flow_rate` TEXT NOT NULL, PRIMARY KEY(`cylinder_num`))",
+        "fields": [
+          {
+            "fieldPath": "numOfCylInEngine",
+            "columnName": "cylinder_num",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rpm",
+            "columnName": "rpm",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exhaust_temperature",
+            "columnName": "exhaust_temperature",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "load",
+            "columnName": "load",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firing_pressure",
+            "columnName": "firing_pressure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scavenging_pressure",
+            "columnName": "scavenging_pressure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compression_pressure",
+            "columnName": "compression_pressure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "break_power",
+            "columnName": "break_power",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imep",
+            "columnName": "imep",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "torque_engine",
+            "columnName": "Torque_engine",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bmep",
+            "columnName": "bmep",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "injection_timing",
+            "columnName": "injection_timing",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuel_flow_rate",
+            "columnName": "fuel_flow_rate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cylinder_num"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "gauges",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `gaugename` TEXT NOT NULL, `gauge_value` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "gaugename",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "gauge_value",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bc56dccfecf866e1a15fa5bec3d2c8a')"
+    ]
+  }
+}
