@@ -74,6 +74,26 @@ object Repository
         }.asLiveData()
     }
 
+    fun getArchivedStatuses(): LiveData<DataState<DashboardViewState>> {
+        return object: NetworkBoundResource<AlertsListSearchResponse, DashboardViewState>(){
+
+
+            override fun createCall(): LiveData<GenericApiResponse<AlertsListSearchResponse>> {
+                return MyRetrofitBuilder.apiService.getArchivedAlert()
+            }
+
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<AlertsListSearchResponse>) {
+                result.value = DataState.data(
+                    null,
+                    DashboardViewState(
+                        statuses = response.body.statusToList()
+                    )
+                )
+            }
+
+        }.asLiveData()
+    }
+
 
     fun getMetaData(): LiveData<DataState<DashboardViewState>> {
         return object: NetworkBoundResource<DashMetaData, DashboardViewState>(){

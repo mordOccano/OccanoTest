@@ -23,6 +23,7 @@ import com.jjoe64.graphview.series.LineGraphSeries
  */
 class GraphsFragment : Fragment() ,View.OnClickListener{
 
+    //TODO(update the fragment for the last update from api - dots[][] for every cylinder)
     var ip: String? = null
 
     var btnGraphToDash :ImageButton? = null

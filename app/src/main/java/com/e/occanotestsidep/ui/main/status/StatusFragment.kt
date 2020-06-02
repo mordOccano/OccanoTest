@@ -22,14 +22,15 @@ import com.e.occanotestsidep.ui.main.DashboardStateEvent
 import com.e.occanotestsidep.ui.main.DataStateListener
 import com.e.occanotestsidep.ui.main.MainViewModel
 import com.e.occanotestsidep.ui.models.Status
+import kotlinx.android.synthetic.main.fragment_calibration_fragment_z.*
 import kotlinx.android.synthetic.main.fragment_status.*
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private  const val ARG_PARAM1 = "StatusFragment"
-private const val ARG_PARAM2 = "1"
+//private  const val ARG_PARAM1 = "StatusFragment"
+//private const val ARG_PARAM2 = "1"
 
 class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickListener {
 
@@ -42,30 +43,30 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
 
     var statusesListFromApi = ArrayList<Status>()
     var statusesListFromCache = ArrayList<Status>()
-    private var statusesListForRv:MutableList<Status> = ArrayList()
+    private var statusesListForRv:ArrayList<Status> = ArrayList()
     lateinit var statusNewRVAdapter: NewStatusAdapter
     private lateinit var dbk: AppDBK
 
     private var param1: String? = null
     private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StatusFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        arguments?.let {
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
+//        }
+//    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance(param1: String, param2: String) =
+//            StatusFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+//            }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,13 +95,11 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         super.onViewCreated(view, savedInstanceState)
 //        mStatusRepository = StatusRepository(context)
         Log.e(TAG,"onViewCreated")
-        setUI()
-
-
+//        setUI()
     }
 
     private fun setUI() {
-        dbk = AppDBK(requireContext())
+//        dbk = AppDBK(requireContext())
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid activity")
@@ -108,7 +107,7 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         setListeners()
         subscribeObservers()
         initNewRv()
-        initFakeRvList()
+//        initFakeRvList()
     }
 
     private fun subscribeObservers(){
@@ -132,7 +131,9 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
             viewState.statuses.let {
                 println("DEBUG: Setting statuses for rv: ${it}")
                 it?.let {
-                    prepareStatusList(it)
+                    statusesListForRv.addAll(it)
+                    statusNewRVAdapter.submitList(statusesListForRv)
+//                    prepareStatusList(it)
                 }
             }
         })
@@ -263,9 +264,9 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
     private fun deleteStatus(status: Status) {
         statusesListForRv.remove(status)
         //update the api that status acknowlkedged, in the future
-            GlobalScope.launch {
-                dbk.getStatusDao()?.updateStatusAcknowledge(true,status.statusId)
-            }
+//            GlobalScope.launch {
+//                dbk.getStatusDao()?.updateStatusAcknowledge(true,status.statusId)
+//            }
         statusNewRVAdapter.notifyDataSetChanged()
 
     }

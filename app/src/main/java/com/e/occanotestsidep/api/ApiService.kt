@@ -7,6 +7,7 @@ import com.e.occanotestsidep.ui.models.Cylinder
 import com.e.occanotestsidep.ui.models.DashMetaData
 import com.e.occanotestsidep.utils.GenericApiResponse
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -16,6 +17,18 @@ interface ApiService {
 
     @GET("/alerts")
     fun getAlerts(): LiveData<GenericApiResponse<AlertsListSearchResponse>>
+
+    @GET("/archived")
+    fun getArchivedAlert(): LiveData<GenericApiResponse<AlertsListSearchResponse>>
+
+    @GET("/plots")
+    fun getGraphDots(): LiveData<GenericApiResponse<AlertsListSearchResponse>>
+
+    @PUT("/archive/{alertId}")
+    fun putAlertAcknowledged(
+        @Path ("alertId") alertId: String
+    ):LiveData<GenericApiResponse<String>>
+
 //
 
 //    @GET("/dashboard")

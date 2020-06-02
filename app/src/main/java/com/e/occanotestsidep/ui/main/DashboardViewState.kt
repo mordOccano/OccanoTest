@@ -11,5 +11,8 @@ import com.e.occanotestsidep.utils.GenericApiResponse
 data class DashboardViewState(
     var cylinders: List<Cylinder>? = null,
     var statuses: List<Status>?=null,
+    var archiveStatuses: List<Status>?=null,
+    //TODO("edit the request from api to that graphs")
+    //var graphDots: List<Dots>?=null,
     var metadata: DashMetaData?= null
 )

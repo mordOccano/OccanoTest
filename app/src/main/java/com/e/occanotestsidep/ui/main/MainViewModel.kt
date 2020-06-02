@@ -53,7 +53,11 @@ constructor(
             }
 
             is DashboardStateEvent.GetStatuses -> {
-                return Repository.getCylinders()
+                return Repository.getStatuses()
+            }
+
+            is DashboardStateEvent.GetArchiveStatuses -> {
+                return Repository.getArchivedStatuses()
             }
 
             is DashboardStateEvent.GetMetaData ->{
@@ -74,6 +78,12 @@ constructor(
     }
 
     fun setStatusesData(statuses: List<Status>){
+        val update = getCurrentViewStateOrNew()
+        update.statuses = statuses
+        _viewState.value = update
+    }
+
+    fun setArchivedStatusesData(statuses: List<Status>){
         val update = getCurrentViewStateOrNew()
         update.statuses = statuses
         _viewState.value = update

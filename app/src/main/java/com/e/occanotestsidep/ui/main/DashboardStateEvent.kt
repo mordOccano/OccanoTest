@@ -6,6 +6,8 @@ sealed class DashboardStateEvent {
 
     class GetStatuses: DashboardStateEvent()
 
+    class GetArchiveStatuses: DashboardStateEvent()
+
     class GetMainDashboard: DashboardStateEvent()
 
     class GetMetaData: DashboardStateEvent()
