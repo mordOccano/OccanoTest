@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName
 
 class DashboardListSearchResponse(
 
-//    @SerializedName("cylinders")
-//    @Expose
+    @SerializedName("cylinders")
+    @Expose
     var cylinders: List<CylinderSearchResponse>
 
 ) {

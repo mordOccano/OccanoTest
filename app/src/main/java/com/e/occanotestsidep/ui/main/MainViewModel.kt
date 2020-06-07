@@ -1,31 +1,16 @@
 package com.e.occanotestsidep.ui.main
 
-import android.app.Application
-import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.RequestManager
-import com.e.occanotestsidep.persistence.AppDBK
-import com.e.occanotestsidep.persistence.StatusDao
 import com.e.occanotestsidep.repository.Repository
-import com.e.occanotestsidep.session.SessionManager
-import com.e.occanotestsidep.ui.models.Cylinder
-import com.e.occanotestsidep.ui.models.DashMetaData
-import com.e.occanotestsidep.ui.models.Status
+import com.e.occanotestsidep.ui.models.*
 import com.e.occanotestsidep.utils.AbsentLiveData
 import com.e.occanotestsidep.utils.DataState
 
-class MainViewModel
-
-constructor(
-//    private val sessionManager: SessionManager,
-//    private val repository: Repository
-//    ,
-//    private val sharedPreferences: SharedPreferences,
-//    private val requestManager: RequestManager
-)  :ViewModel(){
+class MainViewModel :ViewModel(){
 
     private val _stateEvent : MutableLiveData<DashboardStateEvent> = MutableLiveData()
     private val _viewState: MutableLiveData<DashboardViewState> = MutableLiveData()
@@ -34,8 +19,9 @@ constructor(
     get() = _viewState
 
     val dataState: LiveData<DataState<DashboardViewState>> = Transformations
-        .switchMap(_stateEvent) { stateEvent ->
-                stateEvent?.let {
+        .switchMap(_stateEvent) {
+               it?.let {
+                    Log.e("_stateEvent","done-------")
                     handleStateEvent(it)
             }
         }
@@ -45,20 +31,31 @@ constructor(
         when(stateEvent){
 
             is DashboardStateEvent.GetMainDashboard ->{
+                Log.e("_stateEvent","GetMainDashboard")
+
                 return Repository.getCylinders()
             }
 
             is DashboardStateEvent.GetCylinders -> {
+                Log.e("_stateEvent","GetCylinders")
                 return Repository.getCylinders()
             }
 
             is DashboardStateEvent.GetStatuses -> {
+                Log.e("_stateEvent","GetStatuses")
                 return Repository.getStatuses()
             }
 
             is DashboardStateEvent.GetArchiveStatuses -> {
-                return Repository.getArchivedStatuses()
+                return Repository.getCylinders()
             }
+            is DashboardStateEvent.GetGraphDots -> {
+                return Repository.getGraphDots()
+            }
+
+//            is DashboardStateEvent.UpdateStatus -> {
+//                return Repository.updateStatus()
+//            }
 
             is DashboardStateEvent.GetMetaData ->{
                 return Repository.getMetaData()
@@ -69,6 +66,7 @@ constructor(
             }
 
         }
+
     }
 
     fun setCylinderData(cylinders: List<Cylinder>){
@@ -77,15 +75,21 @@ constructor(
         _viewState.value = update
     }
 
-    fun setStatusesData(statuses: List<Status>){
+    fun setGraphData(graphDots: List<GraphDots>){
+        val update = getCurrentViewStateOrNew()
+        update.graphDots = graphDots
+        _viewState.value = update
+    }
+
+    fun setStatusesData(statuses: List<Alert>){
         val update = getCurrentViewStateOrNew()
         update.statuses = statuses
         _viewState.value = update
     }
 
-    fun setArchivedStatusesData(statuses: List<Status>){
+    fun setArchivedStatusesData(statuses: List<Alert>){
         val update = getCurrentViewStateOrNew()
-        update.statuses = statuses
+//        update.statuses = statuses
         _viewState.value = update
     }
 
@@ -96,12 +100,9 @@ constructor(
     }
 
     private fun getCurrentViewStateOrNew(): DashboardViewState {
-        val  value = viewState.value?.let {
+        return viewState.value?.let {
             it
-        }?: DashboardViewState(
-
-        )
-        return value
+        }?: DashboardViewState()
     }
 
     fun setStateEvent(event: DashboardStateEvent){

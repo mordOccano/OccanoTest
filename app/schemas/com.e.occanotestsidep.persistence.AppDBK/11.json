@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "ba3afd511d922bf142f1e4568a216f32",
+    "identityHash": "961f58e6fe039147d18280ce1064f1a8",
     "entities": [
       {
         "tableName": "cylinders",
@@ -602,7 +602,7 @@
       },
       {
         "tableName": "statuses",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`statusId` TEXT NOT NULL, `cylinder_num` INTEGER NOT NULL, `mainTitle` TEXT, `subTitle` TEXT, `lessContent` TEXT, `moreContent` TEXT, `KindOfDanger` INTEGER NOT NULL, `kindOfAcknowledge` INTEGER NOT NULL, `timeStampOfStatus` TEXT, PRIMARY KEY(`statusId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`statusId` TEXT NOT NULL, `cylinder_num` INTEGER NOT NULL, `mainTitle` TEXT, `subTitle` TEXT, `lessContent` TEXT, `moreContent` TEXT, `KindOfDanger` INTEGER NOT NULL, `levelOfDanger` REAL NOT NULL, `kindOfAcknowledge` INTEGER NOT NULL, `timeStampOfStatus` TEXT, PRIMARY KEY(`statusId`))",
         "fields": [
           {
             "fieldPath": "statusId",
@@ -644,6 +644,12 @@
             "fieldPath": "statusKindOfDanger",
             "columnName": "KindOfDanger",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "levelOfDanger",
+            "columnName": "levelOfDanger",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -704,7 +710,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba3afd511d922bf142f1e4568a216f32')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '961f58e6fe039147d18280ce1064f1a8')"
     ]
   }
 }

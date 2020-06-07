@@ -81,9 +81,6 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
                 it.getContentIfNotHandled()?.cylinders?.let {
                     viewModel.setCylinderData(it)
                 }
-                it.getContentIfNotHandled()?.metadata?.let {
-                    viewModel.setMetHadata(it)
-                }
             }
 
         })
@@ -94,9 +91,6 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
                 println("DEBUG: Setting cyls for rv: ${it}")
 
                 dashboardMainRvAdapter.submitList(prepareListToCylindersComparison(it))
-            }
-            viewState.metadata.let {
-                println("DEBUG: Setting meta data to somethig good  ")
             }
 
         })

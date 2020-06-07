@@ -37,10 +37,6 @@ data class GaugeApiResponse(
             0
         }
     }
-
-    fun toGauge(){
-
-    }
     override fun toString(): String {
         return "GaugeApiResponse(value=$value, standard=$standard, average=$average)"
     }

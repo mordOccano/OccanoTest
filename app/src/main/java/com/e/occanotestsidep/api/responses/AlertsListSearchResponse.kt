@@ -1,5 +1,7 @@
 package com.e.occanotestsidep.api.responses
 
+import android.util.Log
+import com.e.occanotestsidep.ui.models.Alert
 import com.e.occanotestsidep.ui.models.Status
 import com.e.occanotestsidep.ui.models.Cylinder
 import com.google.gson.annotations.Expose
@@ -7,19 +9,20 @@ import com.google.gson.annotations.SerializedName
 
 
 class AlertsListSearchResponse(
-//    @SerializedName("status")
-//    @Expose
-    var status: List<StatusSearchNirTempResponse>
+
+    @SerializedName("alerts")
+    @Expose
+    var status: List<AlertSearchResponse> = ArrayList()
 ) {
 
-    fun statusToList(): List<Status>{
-        val statusList: ArrayList<Status> = ArrayList()
-        for(statusResponse in status){
+    fun alertToListOfStatus(): List<Alert>{
+        val statusList: ArrayList<Alert> = ArrayList()
+        for(statusResponse in status!!){
             statusList.add(
-                statusResponse.toStatus()
+                statusResponse.toAlert()
             )
+//            Log.e("","------------------${statusList.toString()}-------------------")
         }
-        println("status to list")
         return statusList
     }
 

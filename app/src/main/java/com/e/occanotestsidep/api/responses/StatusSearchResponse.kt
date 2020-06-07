@@ -59,6 +59,7 @@ class StatusSearchResponse(
             statusLessContent,
             statusMoreContent,
             statusKindOfDanger,
+            0.0,
             knowledge,
             timeStampOfstatus
         )

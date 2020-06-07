@@ -20,6 +20,7 @@ import com.e.occanotestsidep.persistence.AppDBK
 import com.e.occanotestsidep.ui.main.DashboardStateEvent
 import com.e.occanotestsidep.ui.main.DataStateListener
 import com.e.occanotestsidep.ui.main.MainViewModel
+import com.e.occanotestsidep.ui.models.Alert
 import com.e.occanotestsidep.ui.models.Status
 import kotlinx.android.synthetic.main.fragment_status_archive.*
 import kotlinx.coroutines.GlobalScope
@@ -34,7 +35,7 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
     lateinit var statusAckRVAdapter: AckStatusAdapter
 
 //    private var statusesListForRv:MutableList<Status> = ArrayList()
-    private var archiveListForRv:ArrayList<Status> = ArrayList()
+    private var archiveListForRv:ArrayList<Alert> = ArrayList()
     private var statusesListFromApi:ArrayList<Status> = ArrayList()
     private lateinit var dbk: AppDBK
 
@@ -93,7 +94,7 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
 
             dataState.data?.let {
                 it.getContentIfNotHandled()?.statuses?.let {
-                    viewModel.setArchivedStatusesData(it)
+//                    viewModel.setArchivedStatusesData(it)
                 }
             }
 
@@ -104,7 +105,8 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
             viewState.statuses.let {
                 println("DEBUG: Setting statuses for rv: ${it}")
                 it?.let {
-                    prepareStatusList(it)
+//                    prepareStatusList(it)
+//                    statusAckRVAdapter.submitList(it)
                 }
 
             }
@@ -113,7 +115,7 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
 
 
 
-    private fun prepareStatusList(it: List<Status>) {
+    private fun prepareStatusList(it: List<Alert>) {
         archiveListForRv.addAll(it)
 
         statusAckRVAdapter.submitList(archiveListForRv)
@@ -154,17 +156,17 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
     }
 
     private fun prepareSubList(){
-        for (i in archiveListForRv){
-            if (!i.kindOfAcknowledge){
-                for (j in statusesListFromApi){
-                    if (i.statusId == j.statusId){
-                        statusesListFromApi.remove(j)
-                    }
-                }
-            }
-        }
-        archiveListForRv.union(statusesListFromApi)
-        statusAckRVAdapter.notifyDataSetChanged()
+//        for (i in archiveListForRv){
+//            if (!i.kindOfAcknowledge){
+//                for (j in statusesListFromApi){
+//                    if (i.statusId == j.statusId){
+//                        statusesListFromApi.remove(j)
+//                    }
+//                }
+//            }
+//        }
+//        archiveListForRv.union(statusesListFromApi)
+//        statusAckRVAdapter.notifyDataSetChanged()
     }
 
     //        statusAckRVAdapter.submitList(statusesList.toList())
@@ -185,14 +187,14 @@ class StatusArchiveFragment : Fragment() ,AckStatusAdapter.Interaction, View.OnC
         }
     }
 
-    override fun onItemSelected(position: Int, item: Status) {
+    override fun onItemSelected(position: Int, item: Alert) {
         //remove from db - swipe
     }
 
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_archive_to_status -> {
-                v.findNavController().navigate(R.id.action_statusArchiveFragment_to_statusFragment)
+//                v.findNavController().navigate(R.id.action_statusArchiveFragment_to_statusFragment)
             }
             else ->{
 

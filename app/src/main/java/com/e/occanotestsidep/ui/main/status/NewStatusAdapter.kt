@@ -10,17 +10,19 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.e.occanotestsidep.ui.models.Status
 import com.e.occanotestsidep.R
+import com.e.occanotestsidep.ui.models.Alert
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_details
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_subtitle
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_timestamp
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_title
+import kotlinx.android.synthetic.main.status_rv_item_blue.view.*
 import java.util.ArrayList
 
 class NewStatusAdapter(private val interaction: Interaction?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var llist: MutableList<Status> =
-        ArrayList()
+//    var llist: MutableList<Status> =
+//        ArrayList()
 //    private val llist: ArrayList<Status> = ArrayList()
 //    var interaction: Interaction
 
@@ -29,17 +31,19 @@ class NewStatusAdapter(private val interaction: Interaction?) :
 
     override fun getItemViewType(position: Int): Int {
 //        return llist.get(position).statusKindOfDanger
-        return differ.currentList[position].statusKindOfDanger
+//        return differ.currentList[position].saverity
+//        right now we've just alert
+        return 2
     }
 
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Status>() {
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Alert>() {
 
-        override fun areItemsTheSame(oldItem: Status, newItem: Status): Boolean {
-            return oldItem.statusId == newItem.statusId
+        override fun areItemsTheSame(oldItem: Alert, newItem: Alert): Boolean {
+            return oldItem.alert_id == newItem.alert_id
         }
 
-        override fun areContentsTheSame(oldItem: Status, newItem: Status): Boolean {
+        override fun areContentsTheSame(oldItem: Alert, newItem: Alert): Boolean {
             return  oldItem == newItem
         }
 
@@ -110,7 +114,7 @@ class NewStatusAdapter(private val interaction: Interaction?) :
 //        return llist.size
     }
 
-    fun submitList(list: List<Status>) {
+    fun submitList(list: List<Alert>) {
        differ.submitList(list)
     }
 
@@ -120,15 +124,23 @@ class NewStatusAdapter(private val interaction: Interaction?) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Status) = with(itemView) {
+        fun bind(item: Alert) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.tv_item_title.text = item.statusMainTitle
-            itemView.tv_item_timestamp.text = item.timeStampOfstatus
-            itemView.tv_item_subtitle.text = item.statusSubTitle
-            itemView.tv_item_details.text = item.statusMoreContent
+            itemView.tv_item_title.text = item.description.toString()
+//            itemView.tv_item_timestamp.text = item.timeStampOfstatus
+            itemView.tv_item_subtitle.text = item.labels.toString()
+//            itemView.tv_item_details.text = item.statusMoreContent
+
+            if (item.saverity>=1 && item.saverity<3){
+                itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp)
+            } else if (item.saverity>=3){
+                itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp)
+            }else{
+                itemView.item_saverity_img.setImageResource(R.drawable.ic_trending_down_black_24dp)
+            }
 //            itemView.btn_item_rv_status_more.setOnClickListener {
 //                tv_item_subtitle.visibility = View.GONE
 //                tv_item_details.visibility = View.VISIBLE
@@ -148,6 +160,6 @@ class NewStatusAdapter(private val interaction: Interaction?) :
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Status)
+        fun onItemSelected(position: Int, item: Alert)
     }
 }

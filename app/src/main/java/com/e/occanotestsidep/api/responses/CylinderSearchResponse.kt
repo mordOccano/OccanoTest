@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 class CylinderSearchResponse(
 
     @Expose
-    @SerializedName("cylinder_number")
+    @SerializedName("cylinder_num")
     var numOfCylInEngine: Int = 0,
     @Expose
     @SerializedName("engine_speed_mean")

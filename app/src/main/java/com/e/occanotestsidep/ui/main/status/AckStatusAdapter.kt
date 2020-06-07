@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.e.occanotestsidep.ui.models.Status
 import com.e.occanotestsidep.R
+import com.e.occanotestsidep.ui.models.Alert
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_details
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_subtitle
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_timestamp
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_title
+import kotlinx.android.synthetic.main.status_rv_item_blue.view.*
 import java.util.ArrayList
 
 class AckStatusAdapter(private val interaction: Interaction? = null) :
@@ -21,17 +23,17 @@ class AckStatusAdapter(private val interaction: Interaction? = null) :
         ArrayList()
 
     override fun getItemViewType(position: Int): Int {
-        return differ.currentList.get(position).statusKindOfDanger
+        return differ.currentList.get(position).saverity.toInt()
 
     }
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Status>() {
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Alert>() {
 
-        override fun areItemsTheSame(oldItem: Status, newItem: Status): Boolean {
-            return oldItem.statusMoreContent == newItem.statusMoreContent
+        override fun areItemsTheSame(oldItem: Alert, newItem: Alert): Boolean {
+            return oldItem.alert_id == newItem.alert_id
         }
 
-        override fun areContentsTheSame(oldItem: Status, newItem: Status): Boolean {
+        override fun areContentsTheSame(oldItem: Alert, newItem: Alert): Boolean {
             return  oldItem == newItem
         }
 
@@ -86,23 +88,18 @@ class AckStatusAdapter(private val interaction: Interaction? = null) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (differ.currentList[position].kindOfAcknowledge) {
             when (holder) {
                 is AckStatusViewHolder -> {
                     holder.bind(differ.currentList.get(position))
                 }
             }
-        } else{
-           holder.itemView.visibility = View.GONE
-        }
-
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
-    fun submitList(list: List<Status>) {
+    fun submitList(list: List<Alert>) {
 //        for (i in list) {
 //            if (i.kindOfAcknowledge) {
 //                llist.add(i)
@@ -116,16 +113,24 @@ class AckStatusAdapter(private val interaction: Interaction? = null) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Status) = with(itemView) {
+        fun bind(item: Alert) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
 
-            itemView.tv_item_title.text = item.statusMainTitle
-            itemView.tv_item_timestamp.text = item.timeStampOfstatus
-            itemView.tv_item_subtitle.text = item.statusSubTitle
-            itemView.tv_item_details.text = item.statusMoreContent
+            itemView.tv_item_title.text = item.description.toString()
+//            itemView.tv_item_timestamp.text = item.timeStampOfstatus
+            itemView.tv_item_subtitle.text = item.labels.toString()
+//            itemView.tv_item_details.text = item.statusMoreContent
+
+           if (item.saverity>=1 && item.saverity<3){
+               itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp)
+           } else if (item.saverity>=3){
+               itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp)
+           }else{
+               itemView.item_saverity_img.setImageResource(R.drawable.ic_trending_down_black_24dp)
+           }
 
 
 
@@ -133,6 +138,6 @@ class AckStatusAdapter(private val interaction: Interaction? = null) :
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Status)
+        fun onItemSelected(position: Int, item: Alert)
     }
 }

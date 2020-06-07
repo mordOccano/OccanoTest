@@ -15,12 +15,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.*
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.e.occanosidetest.utils.TopSpacingItemDecoration
+import com.e.occanotestsidep.MainActivity
 import com.e.occanotestsidep.R
 import com.e.occanotestsidep.persistence.AppDBK
 import com.e.occanotestsidep.ui.main.DashboardStateEvent
 import com.e.occanotestsidep.ui.main.DataStateListener
 import com.e.occanotestsidep.ui.main.MainViewModel
+import com.e.occanotestsidep.ui.models.Alert
 import com.e.occanotestsidep.ui.models.Status
 import kotlinx.android.synthetic.main.fragment_calibration_fragment_z.*
 import kotlinx.android.synthetic.main.fragment_status.*
@@ -28,27 +33,33 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.UnsupportedEncodingException
+import java.util.*
+import kotlin.collections.ArrayList
 
 //private  const val ARG_PARAM1 = "StatusFragment"
 //private const val ARG_PARAM2 = "1"
 
 class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickListener {
 
+    private var requestQueue: RequestQueue? = null
+
     private val TAG: String = "StatusFragment"
 
     lateinit var viewModel: MainViewModel
     lateinit var dataStateListener: DataStateListener
-//    lateinit var mStatusRepository: StatusRepository
-    var statusesList:ArrayList<Status> = ArrayList()
+//    var statusesList:ArrayList<Status> = ArrayList()
+//    var statusesListFromCache = ArrayList<Status>()
 
     var statusesListFromApi = ArrayList<Status>()
-    var statusesListFromCache = ArrayList<Status>()
-    private var statusesListForRv:ArrayList<Status> = ArrayList()
+    private var statusesListForRv:ArrayList<Alert> = ArrayList()
     lateinit var statusNewRVAdapter: NewStatusAdapter
-    private lateinit var dbk: AppDBK
-
-    private var param1: String? = null
-    private var param2: String? = null
+//    private lateinit var dbk: AppDBK
+//
+//    private var param1: String? = null
+//    private var param2: String? = null
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -95,17 +106,20 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         super.onViewCreated(view, savedInstanceState)
 //        mStatusRepository = StatusRepository(context)
         Log.e(TAG,"onViewCreated")
-//        setUI()
-    }
-
-    private fun setUI() {
-//        dbk = AppDBK(requireContext())
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid activity")
         triggerGetStatusesEvent()
-        setListeners()
         subscribeObservers()
+        setUI()
+    }
+
+    private fun setUI() {
+//        dbk = AppDBK(requireContext())
+//        viewModel = activity?.run {
+//            ViewModelProvider(this).get(MainViewModel::class.java)
+//        }?:throw Exception("Invalid activity")
+        setListeners()
         initNewRv()
 //        initFakeRvList()
     }
@@ -121,6 +135,7 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
             dataState.data?.let {
                 it.getContentIfNotHandled()?.statuses?.let {
                     viewModel.setStatusesData(it)
+                    statusNewRVAdapter.submitList(it)
                 }
             }
 
@@ -129,10 +144,10 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
 
             viewState.statuses.let {
-                println("DEBUG: Setting statuses for rv: ${it}")
+//                Log.e("DEBUG: Setting statuses for rv: ","$it")
                 it?.let {
-                    statusesListForRv.addAll(it)
-                    statusNewRVAdapter.submitList(statusesListForRv)
+//                    statusesListForRv.addAll(it)
+                    statusNewRVAdapter.submitList(it)
 //                    prepareStatusList(it)
                 }
             }
@@ -141,31 +156,31 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
 
     fun prepareStatusList(it: List<Status>){
 
-        statusesListFromApi.addAll(it)
-        GlobalScope.launch {
-
-            val list = (dbk.getStatusDao()?.getAllStatuses()!!.toMutableList())
-            Log.e("from cache ${TAG}",dbk.getStatusDao()?.getAllStatuses()!!.toMutableList().toString())
-
-            withContext(Main){
-                statusesListForRv.addAll(list)
-                prepareSubList()
-                statusNewRVAdapter.submitList(statusesListForRv)
-            }
-
-//            for (i in statusesListForRv) {
-//                dbk.getStatusDao()?.deleteStatus(i)
-//                dbk.getStatusDao()?.insertStatus(i)
+//        statusesListFromApi.addAll(it)
+//        GlobalScope.launch {
+//
+//            val list = (dbk.getStatusDao()?.getAllStatuses()!!.toMutableList())
+//            Log.e("from cache ${TAG}",dbk.getStatusDao()?.getAllStatuses()!!.toMutableList().toString())
+//
+//            withContext(Main){
+//                statusesListForRv.addAll(list)
+//                prepareSubList()
+//                statusNewRVAdapter.submitList(statusesListForRv)
 //            }
+//
+////            for (i in statusesListForRv) {
+////                dbk.getStatusDao()?.deleteStatus(i)
+////                dbk.getStatusDao()?.insertStatus(i)
+////            }
+//
+//            Log.e("second from cache ${TAG}",dbk.getStatusDao()?.getAllStatuses()!!.toMutableList().toString())
+//            Log.e("statusesListForRv ${TAG}",statusesListForRv.toString())
 
-            Log.e("second from cache ${TAG}",dbk.getStatusDao()?.getAllStatuses()!!.toMutableList().toString())
-            Log.e("statusesListForRv ${TAG}",statusesListForRv.toString())
-
-        }
+//        }
     }
 
     private fun prepareSubList(){
-        for (i in statusesListForRv){
+//        for (i in statusesListForRv){
 //            if (!i.kindOfAcknowledge){
 //                for (j in statusesListFromApi){
 //                    if (i.statusId == j.statusId){
@@ -173,14 +188,14 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
 //                    }
 //                }
 //            }
-        }
+//        }
 //        statusesListForRv.union(statusesListFromApi)
         Log.e("statusesListForRv ${TAG}",statusesListForRv.toString())
         statusNewRVAdapter.notifyDataSetChanged()
     }
 
     private fun triggerGetStatusesEvent() {
-        viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
+        viewModel.setStateEvent(DashboardStateEvent.GetStatuses())
     }
 
     private fun setListeners() {
@@ -194,11 +209,11 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
 //            statusesList.add(Status(i,1,"Main Title", "sub title", "subTite","sub moria contenta sub more content sub moria contenta sub more content",
 //                1,true, "(Utility.getCurrentTimeStamp().plus(i)).toString())"))
 //        }
-        if (statusesListForRv.isEmpty()) {
-            statusesListForRv.add(Status("1",4,"Efficiency", " Cylinder #4","","Knocking Identified - Ignition Timing (deg): 0.7",0,false,"06:53:12 UTC  01/04/2020"))
-            statusesListForRv.add(Status("3",2,"Alert", "Cylinder #2","Compression pressure fault","* comp. press: -1.35 std   * Possibly BlowBy - Piston Rings",1,true,"01:23:41 UTC  29/03/2020"))
-            statusNewRVAdapter.notifyDataSetChanged()
-        }
+//        if (statusesListForRv.isEmpty()) {
+//            statusesListForRv.add(Status("1",4,"Efficiency", " Cylinder #4","","Knocking Identified - Ignition Timing (deg): 0.7",0,false,"06:53:12 UTC  01/04/2020"))
+//            statusesListForRv.add(Status("3",2,"AlertFragment", "Cylinder #2","Compression pressure fault","* comp. press: -1.35 std   * Possibly BlowBy - Piston Rings",1,true,"01:23:41 UTC  29/03/2020"))
+//            statusNewRVAdapter.notifyDataSetChanged()
+//        }
     }
 
 
@@ -213,7 +228,7 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         }
     }
 
-    override fun onItemSelected(position: Int, item: Status) {
+    override fun onItemSelected(position: Int, item: Alert) {
 
 ////        val status = Status(item.statusId,item.cylinder_num,item.statusMainTitle,item.statusSubTitle,item.statusLessContent,item.statusMoreContent,item.statusKindOfDanger,!item.kindOfAcknowledge,item.timeStampOfstatus)
 ////        statusesListForRv[position].kindOfAcknowledge = !item.kindOfAcknowledge
@@ -235,11 +250,11 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_status_to_archive->{
-                v.findNavController().navigate(R.id.action_statusFragment_to_statusArchiveFragment)
+//                v.findNavController().navigate(R.id.action_statusFragment_to_statusArchiveFragment)
             }
 
             R.id.btn_status_to_dashboard->{
-                v.findNavController().navigate(R.id.action_statusFragment_to_dashFragment)
+//                v.findNavController().navigate(R.id.action_statusFragment_to_dashFragment)
             }
             else->{
                 Toast.makeText(this.context,"try again", Toast.LENGTH_SHORT).show()
@@ -261,13 +276,62 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
             }
         }
 
-    private fun deleteStatus(status: Status) {
-        statusesListForRv.remove(status)
+    private fun deleteStatus(alert: Alert) {
+        statusesListForRv.remove(alert)
+        val data = alert.alert_id
+
+        submit(data)
+
+//        viewModel.setStateEvent(DashboardStateEvent.GetStatuses())
         //update the api that status acknowlkedged, in the future
 //            GlobalScope.launch {
 //                dbk.getStatusDao()?.updateStatusAcknowledge(true,status.statusId)
 //            }
         statusNewRVAdapter.notifyDataSetChanged()
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requestQueue?.cancelAll(TAG)
+    }
+
+    private fun submit(data: String) {
+        val URL = "http://${ MainActivity().ip}:4000/archive${data}"
+        requestQueue = Volley.newRequestQueue(
+            Objects.requireNonNull(requireContext())
+        )
+        val stringRequest: StringRequest = object : StringRequest(
+            Method.PUT,
+            URL,
+            Response.Listener { response ->
+                try {
+                    val objres = JSONObject(response)
+                } catch (e: JSONException) {
+                }
+            },
+            Response.ErrorListener { error ->
+                if (error != null && error.message != null) {
+                } else if (error is TimeoutError || error is NoConnectionError) {
+                }
+            }) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getParamsEncoding(): String {
+                return super.getParamsEncoding()
+            }
+
+            @Throws(AuthFailureError::class)
+            override fun getBody(): ByteArray {
+                return try {
+                    data.toByteArray(charset("utf-8"))
+                } catch (uee: UnsupportedEncodingException) { //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    uee.message!!.toByteArray()
+                }
+            }
+        }
+        requestQueue!!.add(stringRequest)
     }
 }

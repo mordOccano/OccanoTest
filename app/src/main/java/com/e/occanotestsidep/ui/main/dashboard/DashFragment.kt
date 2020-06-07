@@ -85,9 +85,6 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 
     private val TAG = "DashboardFragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,9 +115,6 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
                 it.getContentIfNotHandled()?.cylinders?.let {
                     viewModel.setCylinderData(it)
                 }
-                it.getContentIfNotHandled()?.metadata?.let {
-                    viewModel.setMetHadata(it)
-                }
             }
 
         })
@@ -128,14 +122,11 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
 
             viewState.cylinders.let {
-                println("DEBUG: Setting cyls for rv: ${it}")
-                dashRvAdapter.submitList(it!!)
-
+                println("DEBUG: Setting cyls for rv: $it")
+                it?.let {
+                    dashRvAdapter.submitList(it)
+                }
             }
-            viewState.metadata.let {
-                println("DEBUG: Setting meta data to somethig good  ")
-            }
-
         })
     }
 
@@ -218,7 +209,6 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 
     private fun triggerGetCylindersEvent() {
         viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
-        viewModel.setStateEvent(DashboardStateEvent.GetMetaData())
     }
 
     fun getAddress(){
@@ -386,7 +376,7 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 //        }
 //        savePropertiesToCalib(gauge)
 
-        findNavController().navigate(R.id.action_dashFragment_to_subDadhboardContainer)
+//        findNavController().navigate(R.id.action_dashFragment_to_subDadhboardContainer)
     }
 }
 

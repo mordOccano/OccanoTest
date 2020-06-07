@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
 import com.e.occanotestsidep.api.ApiService
 import com.e.occanotestsidep.api.MyRetrofitBuilder
+import com.e.occanotestsidep.api.responses.AlertSearchResponse
 import com.e.occanotestsidep.api.responses.AlertsListSearchResponse
 import com.e.occanotestsidep.api.responses.DashboardListSearchResponse
+import com.e.occanotestsidep.api.responses.GraphListSearchResponse
 import com.e.occanotestsidep.persistence.AppDBK
 import com.e.occanotestsidep.persistence.StatusDao
 import com.e.occanotestsidep.session.SessionManager
@@ -66,9 +68,11 @@ object Repository
                 result.value = DataState.data(
                     null,
                     DashboardViewState(
-                        statuses = response.body.statusToList()
+                        statuses = response.body.alertToListOfStatus()
                     )
+
                 )
+                Log.e("getStatuses: ",result.toString() )
             }
 
         }.asLiveData()
@@ -86,7 +90,47 @@ object Repository
                 result.value = DataState.data(
                     null,
                     DashboardViewState(
-                        statuses = response.body.statusToList()
+                        statuses = response.body.alertToListOfStatus()
+                    )
+                )
+            }
+
+        }.asLiveData()
+    }
+
+    fun getGraphDots(): LiveData<DataState<DashboardViewState>> {
+        return object: NetworkBoundResource<GraphListSearchResponse, DashboardViewState>(){
+
+
+            override fun createCall(): LiveData<GenericApiResponse<GraphListSearchResponse>> {
+                return MyRetrofitBuilder.apiService.getGraphDots()
+            }
+
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<GraphListSearchResponse>) {
+                result.value = DataState.data(
+                    null,
+                    DashboardViewState(
+                        graphDots = response.body.graphDataToList()
+                    )
+                )
+            }
+
+        }.asLiveData()
+    }
+
+    fun updateStatus(status: Status): LiveData<DataState<DashboardViewState>> {
+        return object: NetworkBoundResource<String, DashboardViewState>(){
+
+
+            override fun createCall(): LiveData<GenericApiResponse<String>> {
+                return MyRetrofitBuilder.apiService.putAlertAcknowledged(status.statusId)
+            }
+
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<String>) {
+                result.value = DataState.data(
+                    null,
+                    DashboardViewState(
+                        updateResponse = response.body
                     )
                 )
             }

@@ -83,7 +83,7 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
         shipList.add(Ship(6, "PRUDENT WARRIOR",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	6,	"g",	"70",	"e",	"c",	"9753545",	"Tanker",	"2017",	"274",	   "48","149992",	"81287", false))
         shipList.add(Ship(7, "RELIABLE WARRIOR",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	6,	"g",	"70",	"e",	"c",	"9753557",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
         //FAKE ABA SHEL THE FAKE
-        shipList.add(Ship(7, "TARAGGONA ZIM",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	8,	"g",	"70",	"e",	"c",	"9753557",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
+        shipList.add(Ship(7, "TARAGGONA ZIM",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	8,	"g",	"70",	"e",	"c",	"9753567",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
     }
 
     override fun onItemSelected(position: Int, item: Ship) {
@@ -144,7 +144,7 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
         when(v!!.id){
             R.id.buttonLogin -> {
               try {
-                  val data =  //
+                  val data =
 
                   "{" +
                           "\"msgtype\":" + "\"login\"" + ","  +

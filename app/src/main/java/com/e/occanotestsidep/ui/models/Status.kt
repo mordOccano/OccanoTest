@@ -32,7 +32,8 @@ data class Status(
      var statusMoreContent: String? = null,
 
     @ColumnInfo(name = "KindOfDanger")
-     var statusKindOfDanger:Int = 0,
+    var statusKindOfDanger:Int = 0,
+    var levelOfDanger:Double = 0.0,
 
     @ColumnInfo(name = "kindOfAcknowledge")
      var kindOfAcknowledge:Boolean = false,

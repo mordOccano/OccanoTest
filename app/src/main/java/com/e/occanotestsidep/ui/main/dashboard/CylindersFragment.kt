@@ -112,18 +112,20 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
         if (it != null) {
             for (i in it) {
-                listToComparison.rpm_gaugeList.add(i.numOfCylInEngine-1,i.rpm)
-                listToComparison.exhaust_temperature_gaugeList.add(i.numOfCylInEngine-1,i.exhaust_temperature)
-                listToComparison.load_gaugeList.add(i.numOfCylInEngine-1,i.load)
-                listToComparison.firing_pressure_gaugeList.add(i.numOfCylInEngine-1,i.firing_pressure)
-                listToComparison.scavenging_pressure_gaugeList.add(i.numOfCylInEngine-1,i.scavenging_pressure)
-                listToComparison.compression_pressure_gaugeList.add(i.numOfCylInEngine-1,i.compression_pressure)
-                listToComparison.break_power_gaugeList.add(i.numOfCylInEngine-1,i.break_power)
-                listToComparison.imep_gaugeList.add(i.numOfCylInEngine-1,i.imep)
-                listToComparison.Torque_engine_gaugeList.add(i.numOfCylInEngine-1,i.torque_engine)
-                listToComparison.bmep_gaugeList.add(i.numOfCylInEngine-1,i.bmep)
-                listToComparison.injection_timing_gaugeList.add(i.numOfCylInEngine-1,i.injection_timing)
-                listToComparison.fuel_flow_rate_gaugeList.add(i.numOfCylInEngine-1,i.fuel_flow_rate)
+                with(listToComparison) {
+                    rpm_gaugeList.add(i.numOfCylInEngine - 1, i.rpm)
+                    exhaust_temperature_gaugeList.add(i.numOfCylInEngine - 1, i.exhaust_temperature)
+                    load_gaugeList.add(i.numOfCylInEngine - 1, i.load)
+                    firing_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.firing_pressure)
+                    scavenging_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.scavenging_pressure)
+                    compression_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.compression_pressure)
+                    break_power_gaugeList.add(i.numOfCylInEngine - 1, i.break_power)
+                    imep_gaugeList.add(i.numOfCylInEngine - 1, i.imep)
+                    Torque_engine_gaugeList.add(i.numOfCylInEngine - 1, i.torque_engine)
+                    bmep_gaugeList.add(i.numOfCylInEngine - 1, i.bmep)
+                    injection_timing_gaugeList.add(i.numOfCylInEngine - 1, i.injection_timing)
+                    fuel_flow_rate_gaugeList.add(i.numOfCylInEngine - 1, i.fuel_flow_rate)
+                }
             }
         }
 
@@ -265,9 +267,10 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
     override fun onResume() {
         super.onResume()
-        setPointers(requireView())
-        setMaxGauges(maxSpeed)
-        setGauges()
+//        setPointers(requireView())
+//        setMaxGauges(maxSpeed)
+//        setGauges()
+        triggerGetCylindersEvent()
     }
 
 

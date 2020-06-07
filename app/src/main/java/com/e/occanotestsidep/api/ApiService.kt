@@ -1,8 +1,10 @@
 package com.e.occanotestsidep.api
 
 import androidx.lifecycle.LiveData
+import com.e.occanotestsidep.api.responses.AlertSearchResponse
 import com.e.occanotestsidep.api.responses.AlertsListSearchResponse
 import com.e.occanotestsidep.api.responses.DashboardListSearchResponse
+import com.e.occanotestsidep.api.responses.GraphListSearchResponse
 import com.e.occanotestsidep.ui.models.Cylinder
 import com.e.occanotestsidep.ui.models.DashMetaData
 import com.e.occanotestsidep.utils.GenericApiResponse
@@ -22,7 +24,7 @@ interface ApiService {
     fun getArchivedAlert(): LiveData<GenericApiResponse<AlertsListSearchResponse>>
 
     @GET("/plots")
-    fun getGraphDots(): LiveData<GenericApiResponse<AlertsListSearchResponse>>
+    fun getGraphDots(): LiveData<GenericApiResponse<GraphListSearchResponse>>
 
     @PUT("/archive/{alertId}")
     fun putAlertAcknowledged(
