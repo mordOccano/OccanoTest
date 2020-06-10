@@ -21,7 +21,6 @@ class MainViewModel :ViewModel(){
     val dataState: LiveData<DataState<DashboardViewState>> = Transformations
         .switchMap(_stateEvent) {
                it?.let {
-                    Log.e("_stateEvent","done-------")
                     handleStateEvent(it)
             }
         }
@@ -31,18 +30,14 @@ class MainViewModel :ViewModel(){
         when(stateEvent){
 
             is DashboardStateEvent.GetMainDashboard ->{
-                Log.e("_stateEvent","GetMainDashboard")
-
                 return Repository.getCylinders()
             }
 
             is DashboardStateEvent.GetCylinders -> {
-                Log.e("_stateEvent","GetCylinders")
                 return Repository.getCylinders()
             }
 
             is DashboardStateEvent.GetStatuses -> {
-                Log.e("_stateEvent","GetStatuses")
                 return Repository.getStatuses()
             }
 
@@ -66,7 +61,6 @@ class MainViewModel :ViewModel(){
             }
 
         }
-
     }
 
     fun setCylinderData(cylinders: List<Cylinder>){
@@ -89,7 +83,7 @@ class MainViewModel :ViewModel(){
 
     fun setArchivedStatusesData(statuses: List<Alert>){
         val update = getCurrentViewStateOrNew()
-//        update.statuses = statuses
+        update.statuses = statuses
         _viewState.value = update
     }
 

@@ -1,4 +1,4 @@
-package com.e.occanotestsidep.ui.main.dashboard
+package com.e.occanotestsidep.ui.main.alert
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.e.occanotestsidep.ui.models.Alert
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_subtitle
 import kotlinx.android.synthetic.main.status_rv_item.view.tv_item_title
 import kotlinx.android.synthetic.main.status_rv_item_blue.view.*
+import kotlin.math.roundToInt
 
 class AlertAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -72,12 +73,17 @@ class AlertAdapter(private val interaction: Interaction? = null) :
             itemView.tv_item_title.text = item.description.toString()
             itemView.tv_item_subtitle.text = item.labels.toString()
 
-            if (item.saverity>=1 && item.saverity<3){
-                itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp)
-            } else if (item.saverity>=3){
-                itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp)
-            }else{
-                itemView.item_saverity_img.setImageResource(R.drawable.ic_trending_down_black_24dp)
+            if (item.saverity.toInt()>5){
+                itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp )
+            }
+            when(item.saverity.roundToInt()){
+                0 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_trending_down_black_24dp) }
+                1 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp) }
+                2 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp) }
+                3 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_report_problem_black_24dp) }
+                4 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp) }
+                5 ->{ itemView.item_saverity_img.setImageResource(R.drawable.ic_report_black_24dp) }
+
             }
         }
     }

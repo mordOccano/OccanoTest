@@ -117,6 +117,7 @@ class DasboardMainRvAdapter(private val interaction: Interaction? = null) :
             itemView.main_dash_rv_item_title.text =  " ${item.name}"
 
             itemView.main_dash_rv_item_gauge?.let {
+                it.setMinSpeed(-0.01f)
                 it.setMaxSpeed(item.maxSpeed)
                 it.tickNumber = 9
                 it.speedTo(item.value)

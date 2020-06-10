@@ -6,7 +6,7 @@ package com.e.occanotestsidep.utils
 class Event<T>(private val content: T) {
 
     var hasBeenHandled = false
-        private set // Allow external read but not write
+//        private set // Allow external read but not write
 
     /**
      * Returns the content and prevents its use again.

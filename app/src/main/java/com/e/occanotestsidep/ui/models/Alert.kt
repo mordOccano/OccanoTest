@@ -4,8 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -28,6 +26,6 @@ data class Alert(
 
 ):Parcelable {
     override fun toString(): String {
-        return "AlertFragment(saverity=$saverity, description=$description, labels='$labels', alert_id='$alert_id')"
+        return "Alert(alert_id='$alert_id', saverity=$saverity, description='$description', acknowledged=$acknowledged, labels=$labels)"
     }
 }

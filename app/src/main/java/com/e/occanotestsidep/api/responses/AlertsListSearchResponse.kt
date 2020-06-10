@@ -10,9 +10,9 @@ import com.google.gson.annotations.SerializedName
 
 class AlertsListSearchResponse(
 
-    @SerializedName("alerts")
+    @SerializedName("insights")
     @Expose
-    var status: List<AlertSearchResponse> = ArrayList()
+    var status: List<AlertSearchResponse>
 ) {
 
     fun alertToListOfStatus(): List<Alert>{
@@ -21,7 +21,6 @@ class AlertsListSearchResponse(
             statusList.add(
                 statusResponse.toAlert()
             )
-//            Log.e("","------------------${statusList.toString()}-------------------")
         }
         return statusList
     }

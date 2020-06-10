@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.dashboard.GraphsFragment"
+    tools:context=".ui.main.graph.GraphsFragment"
     android:orientation="vertical"
     android:background="@color/colorText">
     <ScrollView

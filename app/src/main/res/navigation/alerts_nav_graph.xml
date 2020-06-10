@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alerts_nav_graph"
+    app:startDestination="@id/alertFragment">
+
+    <action android:id="@+id/action_global_alertFragment"
+        app:destination="@id/alertFragment"/>
+    <action android:id="@+id/action_global_archivedAlertFragment"
+        app:destination="@id/archivedAlertFragment"/>
+
+    <fragment
+        android:id="@+id/alertFragment"
+        android:name="com.e.occanotestsidep.ui.main.alert.AlertFragment"
+        android:label="AlertFragment" >
+        <action
+            android:id="@+id/action_statusFragment_to_statusArchiveFragment"
+            app:destination="@id/archivedAlertFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/archivedAlertFragment"
+        android:name="com.e.occanotestsidep.ui.main.alert.ArchivedAlertFragment"
+        android:label="ArchivedAlertFragment" />
+
+</navigation>

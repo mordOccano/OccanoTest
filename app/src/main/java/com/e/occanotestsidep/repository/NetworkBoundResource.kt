@@ -24,9 +24,7 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
     init {
         result.value = DataState.loading(true)
 
-
         GlobalScope.launch(IO){
-            delay(TESTING_NETWORK_DELAY)
 
             withContext(Main){
                 val apiResponse = createCall()

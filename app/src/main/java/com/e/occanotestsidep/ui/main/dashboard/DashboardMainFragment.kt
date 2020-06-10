@@ -25,8 +25,25 @@ import java.lang.ClassCastException
 
 /**
  * A simple [Fragment] subclass.
+ *
  */
+
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
 class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
+
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
 
     lateinit var viewModel: MainViewModel
 
@@ -50,6 +67,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid activity")
@@ -72,7 +90,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
     private fun subscribeObservers() {
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
 
-            println("Debug: DataState: ${dataState} ")
+            println("Debug: DashboardMainFragment DataState: ${dataState} ")
 
             //handle loading and message
             dataStateListener.onDataStateChange(dataState)
@@ -88,7 +106,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
 
             viewState.cylinders.let {
-                println("DEBUG: Setting cyls for rv: ${it}")
+                println("DEBUG: DashboardMainFragment Setting cyls for rv: ${it}")
 
                 dashboardMainRvAdapter.submitList(prepareListToCylindersComparison(it))
             }
@@ -284,6 +302,27 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
         println("DEBUG: click $position")
         println("DEBUG: click $item")
 //        findNavController().navigate(R.id.action_dashboardMainFragment_to_subDadhboardContainer)
+    }
+
+    companion object {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private const val ARG_SECTION_NUMBER = "section_number"
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            DashboardMainFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
     }
 
 }

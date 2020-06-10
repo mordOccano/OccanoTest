@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_nav_graph"
+    app:startDestination="@id/graphsFragment">
+
+    <fragment
+        android:id="@+id/graphsFragment"
+        android:name="com.e.occanotestsidep.ui.main.graph.GraphsFragment"
+        android:label="fragment_graphs"
+        tools:layout="@layout/fragment_graphs" />
+    <action android:id="@+id/action_global_graphsFragment"
+        app:destination="@id/graphsFragment"/>
+
+</navigation>

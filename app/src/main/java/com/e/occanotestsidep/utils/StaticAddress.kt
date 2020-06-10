@@ -107,7 +107,7 @@ class StaticAddress {
         var counter_compare_to_local: Int = 0
         var sec_bool_counter_compare_to_local: Boolean = false
 
-        const val TESTING_NETWORK_DELAY = 1000L
+        const val TESTING_NETWORK_DELAY = 0L
         const val TESTING_CACHE_DELAY = 1000L
 
         const val UNABLE_TODO_OPERATION_WO_INTERNET =

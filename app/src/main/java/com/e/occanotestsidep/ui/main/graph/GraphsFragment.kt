@@ -1,4 +1,4 @@
-package com.e.occanotestsidep.ui.main.dashboard
+package com.e.occanotestsidep.ui.main.graph
 
 
 import android.content.Context
@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 
 import com.e.occanotestsidep.R
 import com.e.occanotestsidep.ui.main.DataStateListener
@@ -204,12 +203,7 @@ class GraphsFragment : Fragment() ,View.OnClickListener{
         when(v!!.id){
 
             R.id.btn_graph_to_dash ->{
-                if(findNavController().currentDestination?.id == R.id.graphsFragment){
-                    findNavController().navigate(R.id.action_graphsFragment_to_dashFragment)
-                }
-                if (findNavController().currentDestination?.id == R.id.subDadhboardContainer){
-                    findNavController().navigate(R.id.action_subDadhboardContainer_to_dashFragment)
-                }
+
             }
       }
     }

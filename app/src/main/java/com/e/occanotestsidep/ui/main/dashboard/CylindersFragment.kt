@@ -27,6 +27,8 @@ import com.e.occanotestsidep.ui.models.GaugeForCalibration
 //import com.e.occanotestsidep.persistence.Graph.repoGraph.CombPresRepository
 //import com.e.occanotestsidep.persistence.Graph.repoGraph.FuelRepository
 import kotlinx.android.synthetic.main.fragment_cylinders.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.ClassCastException
 
 /**
@@ -81,7 +83,7 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
     private fun subscribeObservers(){
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
 
-            println("Debug: DataState: ${dataState} ")
+            println("Debug: CylindersFragment DataState: ${dataState} ")
 
             //handle loading and message
             dataStateListener.onDataStateChange(dataState)
@@ -97,7 +99,7 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
 
             viewState.cylinders.let {
-                println("DEBUG: Setting cyls for ui: ${it}")
+                println("DEBUG: CylindersFragment Setting cyls for ui: ${it}")
 
 
                 it?.let {
@@ -109,6 +111,9 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
     }
 
     private fun prepareListToCylindersComparison(it: List<Cylinder>?) : List<List<Gauge>> {
+
+        GlobalScope.launch {
+
 
         if (it != null) {
             for (i in it) {
@@ -126,10 +131,11 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
                     injection_timing_gaugeList.add(i.numOfCylInEngine - 1, i.injection_timing)
                     fuel_flow_rate_gaugeList.add(i.numOfCylInEngine - 1, i.fuel_flow_rate)
                 }
+
             }
         }
 
-
+        }
         val list : List<List<Gauge>> = listOf(
                listToComparison.rpm_gaugeList.toList(),
                listToComparison.exhaust_temperature_gaugeList.toList(),
@@ -320,5 +326,25 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 //        }
     }
 
+    companion object {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private const val ARG_SECTION_NUMBER = "section_number"
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        @JvmStatic
+        fun newInstance(sectionNumber: Int): CylindersFragment {
+            return CylindersFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_SECTION_NUMBER, sectionNumber)
+                }
+            }
+        }
+    }
 
 }

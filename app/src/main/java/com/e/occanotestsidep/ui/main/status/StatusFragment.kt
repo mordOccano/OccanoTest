@@ -154,8 +154,8 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
         })
     }
 
-    fun prepareStatusList(it: List<Status>){
-
+//    fun prepareStatusList(it: List<Status>){
+//
 //        statusesListFromApi.addAll(it)
 //        GlobalScope.launch {
 //
@@ -175,9 +175,9 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
 //
 //            Log.e("second from cache ${TAG}",dbk.getStatusDao()?.getAllStatuses()!!.toMutableList().toString())
 //            Log.e("statusesListForRv ${TAG}",statusesListForRv.toString())
-
+//
 //        }
-    }
+//    }
 
     private fun prepareSubList(){
 //        for (i in statusesListForRv){
@@ -268,6 +268,7 @@ class StatusFragment :Fragment(), NewStatusAdapter.Interaction, View.OnClickList
                 viewHolder: RecyclerView.ViewHolder,
                 viewHolder1: RecyclerView.ViewHolder
             ): Boolean {
+//                viewHolder1.itemView.
                 return false
             }
 

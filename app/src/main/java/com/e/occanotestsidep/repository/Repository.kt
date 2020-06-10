@@ -24,8 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-object Repository
-: JobManager("Repository"){
+object Repository {
 
     private val TAG: String = "AppDebug"
 
@@ -72,7 +71,7 @@ object Repository
                     )
 
                 )
-                Log.e("getStatuses: ",result.toString() )
+//                Log.e("getStatuses: ",result.value.toString() )
             }
 
         }.asLiveData()

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/maun_nav_graph"
+    app:startDestination="@id/dashboard_nav_graph">
+
+    <action android:id="@+id/action_global_dashboard"
+        app:destination="@id/dashboard_nav_graph"/>
+    <action android:id="@+id/action_global_alerts"
+        app:destination="@id/alerts_nav_graph"/>
+    <action android:id="@+id/action_global_graph"
+        app:destination="@id/graph_nav_graph"/>
+
+    <include app:graph="@navigation/dashboard_nav_graph" >
+
+
+        <action
+            android:id="@+id/action_global_alerts_nav_graph"
+            app:destination="@id/alerts_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_global_graph_nav_graph"
+            app:destination="@id/graph_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph" />
+    </include>
+    <include app:graph="@navigation/alerts_nav_graph" >
+        <action
+            android:id="@+id/action_global_alerts_nav_graph"
+            app:destination="@id/graph_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph" />
+        <action
+            android:id="@+id/action_global_dashboard_nav_graph"
+            app:destination="@id/dashboard_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph" />
+    </include>
+    <include app:graph="@navigation/graph_nav_graph" >
+        <action
+            android:id="@+id/action_graph_nav_to_alerts_nav_graph"
+            app:destination="@id/alerts_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph" />
+        <action
+            android:id="@+id/action_graph_nav_to_dashboard_nav_graph"
+            app:destination="@id/dashboard_nav_graph"
+            app:popUpTo="@id/dashboard_nav_graph" />
+    </include>
+</navigation>

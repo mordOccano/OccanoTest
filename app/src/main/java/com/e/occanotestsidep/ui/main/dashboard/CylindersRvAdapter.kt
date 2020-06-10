@@ -51,7 +51,8 @@ class CylindersRvAdapter(private val interaction: Interaction? = null) :
         }
     }
 
-    override fun getItemCount(): Int = if (differ.currentList[0]!=null) {
+    override fun getItemCount(): Int =
+        if (differ.currentList[0]!=null) {
         differ.currentList[0].size
     } else 0
 

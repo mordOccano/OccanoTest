@@ -47,9 +47,15 @@ import com.e.occanotestsidep.ui.models.GaugeForCalibration
 import com.e.occanotestsidep.ui.models.Ship
 import kotlinx.android.synthetic.main.fragment_dash.*
 import java.lang.ClassCastException
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction{
 
+    //maybe the problem is newInstance, the problem is maybe because the
+
+    private var param1: String? = null
+    private var param2: String? = null
 
     lateinit var viewModel: MainViewModel
 
@@ -85,6 +91,14 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 
     private val TAG = "DashboardFragment"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,9 +119,7 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 
     private fun subscribeObservers(){
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-
-            println("Debug: DataState: ${dataState} ")
-
+            println("Debug: DashFragment DataState: ${dataState} ")
             //handle loading and message
             dataStateListener.onDataStateChange(dataState)
 
@@ -120,9 +132,8 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
         })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
-
             viewState.cylinders.let {
-                println("DEBUG: Setting cyls for rv: $it")
+                println("DEBUG: Setting DashFragment cyls for rv: $it")
                 it?.let {
                     dashRvAdapter.submitList(it)
                 }
@@ -173,8 +184,6 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
     private fun setListeners(){
         btnDashCurr!!.setOnClickListener{}
         btnToStatus!!.setOnClickListener{
-            findNavController().navigate(R.id.action_dashFragment_to_statusFragment)
-
         }
 
     }
@@ -298,7 +307,6 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
             putFloat("valueOfGaugeFromdash", gaugeForCalibration.value)
             commit()
         }
-        view?.let { Navigation.findNavController(it).navigate(R.id.action_dashFragment_to_subDadhboardContainer) }
     }
 
     override fun onAttach(context: Context) {
@@ -378,6 +386,30 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
 
 //        findNavController().navigate(R.id.action_dashFragment_to_subDadhboardContainer)
     }
+
+
+    companion object {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private const val ARG_SECTION_NUMBER = "section_number"
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        @JvmStatic
+        fun newInstance(sectionNumber: Int): DashFragment {
+            return DashFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+        }
+    }
+
 }
 
 

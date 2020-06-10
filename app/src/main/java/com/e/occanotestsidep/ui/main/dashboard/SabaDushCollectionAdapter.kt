@@ -2,22 +2,43 @@ package com.e.occanotestsidep.ui.main.dashboard
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.e.occanotestsidep.ui.main.status.StatusArchiveFragment
+import com.e.occanotestsidep.ui.main.alert.AlertFragment
+import com.e.occanotestsidep.ui.main.alert.ArchivedAlertFragment
+import com.e.occanotestsidep.ui.main.graph.GraphsFragment
 
 class SabaDushCollectionAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 7
     override fun createFragment(position: Int): Fragment {
 
-        return when(position){
-            0 -> DashboardMainFragment()
-            1 -> CylindersFragment()
-            2 -> DashFragment()
-            3 -> AlertFragment()
-            4 -> StatusArchiveFragment()
-            5 -> CalibrationFragment()
-            6 -> GraphsFragment()
-            else -> GraphsFragment()
+        var fragment: Fragment? = null
+        fragment = when(position){
+
+            0 -> {
+                DashboardMainFragment.newInstance("","")
+            }
+            1 -> {
+                CylindersFragment.newInstance(1)
+            }
+            2 -> {
+                DashFragment.newInstance(2)
+            }
+            3 -> {
+                AlertFragment.newInstance(3)
+            }
+            4 -> {
+                ArchivedAlertFragment.newInstance(4)
+            }
+            5 -> {
+                CalibrationFragment()
+            }
+            6 -> {
+                GraphsFragment()
+            }
+            else -> {
+                GraphsFragment()
+            }
 
         }
+        return fragment
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <item
@@ -10,11 +11,10 @@
     <item
         android:id="@+id/navigation_status"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/status" />
+        android:title="Alert" />
 
     <item
-        android:id="@+id/navigation_log"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="@string/log" />
-
+        android:id="@+id/navigation_report"
+        android:icon="@drawable/ic_report_problem_black_24dp"
+        android:title="Report" />
 </menu>
