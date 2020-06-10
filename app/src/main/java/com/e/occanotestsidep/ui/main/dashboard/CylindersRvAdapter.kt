@@ -51,10 +51,17 @@ class CylindersRvAdapter(private val interaction: Interaction? = null) :
         }
     }
 
-    override fun getItemCount(): Int =
-        if (differ.currentList[0]!=null) {
-        differ.currentList[0].size
-    } else 0
+    override fun getItemCount(): Int{
+        try {
+           return differ.currentList[0].size
+
+        }catch (e: Exception ){
+            e.printStackTrace()
+        }
+        return 1
+    }
+
+
 
     fun submitList(list: List<List<Gauge>>) {
         differ.submitList(list)

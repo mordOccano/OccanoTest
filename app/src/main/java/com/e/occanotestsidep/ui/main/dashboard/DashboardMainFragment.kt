@@ -316,13 +316,13 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
          * number.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardMainFragment().apply {
+        fun newInstance(sectionNumber: Int): CylindersFragment {
+            return CylindersFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }
             }
+        }
     }
 
 }

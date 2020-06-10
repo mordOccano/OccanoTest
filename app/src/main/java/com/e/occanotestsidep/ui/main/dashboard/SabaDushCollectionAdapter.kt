@@ -14,19 +14,24 @@ class SabaDushCollectionAdapter(fragment: Fragment): FragmentStateAdapter(fragme
         fragment = when(position){
 
             0 -> {
-                DashboardMainFragment.newInstance("","")
+                DashboardMainFragment()
+//                    .newInstance(0)
             }
             1 -> {
-                CylindersFragment.newInstance(1)
+                CylindersFragment()
+//                    .newInstance(1)
             }
             2 -> {
-                DashFragment.newInstance(2)
+                DashFragment()
+//                    .newInstance(2)
             }
             3 -> {
-                AlertFragment.newInstance(3)
+                AlertFragment()
+//                    .newInstance(3)
             }
             4 -> {
-                ArchivedAlertFragment.newInstance(4)
+                ArchivedAlertFragment()
+//                    .newInstance(4)
             }
             5 -> {
                 CalibrationFragment()

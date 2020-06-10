@@ -113,9 +113,7 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
     private fun prepareListToCylindersComparison(it: List<Cylinder>?) : List<List<Gauge>> {
 
         GlobalScope.launch {
-
-
-        if (it != null) {
+            if (it != null) {
             for (i in it) {
                 with(listToComparison) {
                     rpm_gaugeList.add(i.numOfCylInEngine - 1, i.rpm)

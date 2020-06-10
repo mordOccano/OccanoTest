@@ -19,6 +19,7 @@ import com.e.occanotestsidep.MainActivity
 
 import com.e.occanotestsidep.R
 import com.e.occanotestsidep.ui.main.DashboardStateEvent
+import com.e.occanotestsidep.ui.main.DataStateListener
 import com.e.occanotestsidep.ui.main.MainViewModel
 import com.e.occanotestsidep.ui.models.Alert
 import kotlinx.android.synthetic.main.fragment_alert.*
@@ -46,7 +47,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
 
     lateinit var viewModel: MainViewModel
 
-//    lateinit var dataStateListener: DataStateListener
+    lateinit var dataStateListener: DataStateListener
     lateinit var alertAdapter : AlertAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,16 +80,17 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = activity?.run{
-            ViewModelProvider(this).get(MainViewModel::class.java)
-        }?:throw Exception("Invalid Activity")
        setUI()
     }
 
     fun setUI(){
-        triggerData()
+        viewModel = activity?.run{
+            ViewModelProvider(this).get(MainViewModel::class.java)
+        }?:throw Exception("Invalid Activity")
         initRv()
         subscribeObservers()
+        triggerData()
+
     }
 
     private fun triggerData() {
@@ -98,8 +100,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            setUI()
-//            dataStateListener = context as DataStateListener
+            dataStateListener = context as DataStateListener
         } catch (e: ClassCastException) {
             println("$context must implement DataStateListener")
         }

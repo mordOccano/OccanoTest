@@ -26,10 +26,6 @@ class SubDadhboardContainer : Fragment()
     private lateinit var viewPager: ViewPager2
 //    lateinit var bottomNav: BottomNavigationView
 
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

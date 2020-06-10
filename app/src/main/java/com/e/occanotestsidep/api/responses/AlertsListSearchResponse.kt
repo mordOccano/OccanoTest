@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 
 class AlertsListSearchResponse(
 
-    @SerializedName("insights")
+    @SerializedName("alerts")
     @Expose
     var status: List<AlertSearchResponse>
 ) {
