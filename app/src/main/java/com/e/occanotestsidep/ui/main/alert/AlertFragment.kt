@@ -70,7 +70,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_alert, container, false)
-        setUI()
+//        setUI()
     }
 
     override fun onResume() {
@@ -80,17 +80,15 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       setUI()
+        initRv()
     }
 
     fun setUI(){
         viewModel = activity?.run{
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid Activity")
-        initRv()
         subscribeObservers()
         triggerData()
-
     }
 
     private fun triggerData() {
