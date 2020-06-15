@@ -4,6 +4,8 @@ sealed class DashboardStateEvent {
 
     class GetCylinders: DashboardStateEvent()
 
+    class GetReport: DashboardStateEvent()
+
     class GetStatuses: DashboardStateEvent()
 
     class GetArchiveStatuses: DashboardStateEvent()
@@ -14,7 +16,7 @@ sealed class DashboardStateEvent {
 
     class GetMainDashboard: DashboardStateEvent()
 
-    class GetMetaData: DashboardStateEvent()
+//    class GetMetaData: DashboardStateEvent()
 
 
     class None: DashboardStateEvent()

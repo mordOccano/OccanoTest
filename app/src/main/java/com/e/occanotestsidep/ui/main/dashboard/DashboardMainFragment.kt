@@ -60,6 +60,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.e("DashboardMainFragment","onCreateView")
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard_main, container, false)
     }
@@ -67,6 +68,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("DashboardMainFragment","onViewCreated")
 
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
@@ -75,6 +77,7 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
         triggerGetCylindersEvent()
         subscribeObservers()
         initRv()
+
     }
 
     private fun initRv(){
@@ -135,8 +138,15 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
         viewModel.setStateEvent(DashboardStateEvent.GetMainDashboard())
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.e("DashboardMainFragment","onAttach")
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.e("DashboardMainFragment","onAttach")
+
         try {
             dataStateListener = context as DataStateListener
         }catch (e: ClassCastException){

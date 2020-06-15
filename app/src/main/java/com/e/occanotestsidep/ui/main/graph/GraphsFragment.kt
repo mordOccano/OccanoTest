@@ -1,27 +1,27 @@
 package com.e.occanotestsidep.ui.main.graph
 
 
+//import com.e.occanotestsidep.persistence.Graph.repoGraph.CombPresRepository
+//import com.e.occanotestsidep.persistence.Graph.repoGraph.FuelRepository
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.e.occanotestsidep.R
 import com.e.occanotestsidep.ui.main.DataStateListener
 import com.e.occanotestsidep.ui.main.MainViewModel
-//import com.e.occanotestsidep.persistence.Graph.repoGraph.CombPresRepository
-//import com.e.occanotestsidep.persistence.Graph.repoGraph.FuelRepository
 import com.e.occanotestsidep.ui.models.GraphDots
 import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.lang.Exception
+
 
 /**
  * A simple [Fragment] subclass.
@@ -162,13 +162,36 @@ class GraphsFragment : Fragment() ,View.OnClickListener{
     }
 
     private fun initGraphs() {
+        val series =
+            LineGraphSeries(
+                arrayOf<DataPoint>(
+                    DataPoint(0.0, -2.0),
+                    DataPoint(1.0, 5.0),
+                    DataPoint(2.0, 3.0),
+                    DataPoint(3.0, 2.0),
+                    DataPoint(4.0, 6.0)
+                )
+            )
+
+        val series2 =
+            LineGraphSeries(
+                arrayOf<DataPoint>(
+                    DataPoint(0.0, 3.0),
+                    DataPoint(1.0, 3.0),
+                    DataPoint(2.0, 6.0),
+                    DataPoint(3.0, 2.0),
+                    DataPoint(4.0, 5.0)
+                )
+            )
+
         with(engineGraph) {
-            this!!.addSeries(engineSeries)
+            this!!.addSeries(series)
+            this!!.addSeries(series2)
             with(viewport){
                 isXAxisBoundsManual = true
                 isScrollable = true
                 setMinX(0.0)
-                setMaxX(40.0)
+                setMaxX(360.0)
             }
         }
     }
@@ -181,7 +204,9 @@ class GraphsFragment : Fragment() ,View.OnClickListener{
         //graph
         engineGraph = v.findViewById(R.id.torque_graph) as GraphView
 
-        engineSeries = LineGraphSeries()
+
+
+
 
         btnGraphToDash = v.findViewById(R.id.btn_graph_to_dash)
 

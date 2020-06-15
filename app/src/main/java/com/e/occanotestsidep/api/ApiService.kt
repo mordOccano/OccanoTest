@@ -5,6 +5,7 @@ import com.e.occanotestsidep.api.responses.AlertSearchResponse
 import com.e.occanotestsidep.api.responses.AlertsListSearchResponse
 import com.e.occanotestsidep.api.responses.DashboardListSearchResponse
 import com.e.occanotestsidep.api.responses.GraphListSearchResponse
+import com.e.occanotestsidep.api.responses.report.ReportSearchResponse
 import com.e.occanotestsidep.ui.models.Cylinder
 import com.e.occanotestsidep.ui.models.DashMetaData
 import com.e.occanotestsidep.utils.GenericApiResponse
@@ -13,6 +14,9 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
+
+    @GET("/report")
+    fun getMain(): LiveData<GenericApiResponse<ReportSearchResponse>>
 
     @GET("/dashboard")
     fun getCylinders(): LiveData<GenericApiResponse<DashboardListSearchResponse>>

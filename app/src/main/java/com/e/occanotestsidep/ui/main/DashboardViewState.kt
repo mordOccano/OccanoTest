@@ -8,6 +8,5 @@ data class DashboardViewState(
     var statuses: List<Alert>? = null,
     var archiveStatuses: List<Alert>? = null,
     var updateResponse:String? = null,
-    var graphDots: List<GraphDots>?=null,
-    var metadata: DashMetaData?= null
+    var graphDots: List<GraphDots>?=null
 )

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.e.occanotestsidep.repository.Repository
+import com.e.occanotestsidep.ui.main.DashboardStateEvent.*
 import com.e.occanotestsidep.ui.models.*
 import com.e.occanotestsidep.utils.AbsentLiveData
 import com.e.occanotestsidep.utils.DataState
@@ -29,22 +30,26 @@ class MainViewModel :ViewModel(){
 
         when(stateEvent){
 
-            is DashboardStateEvent.GetMainDashboard ->{
+            is GetReport ->{
+                return Repository.getReport()
+            }
+            is GetMainDashboard ->{
                 return Repository.getCylinders()
             }
 
-            is DashboardStateEvent.GetCylinders -> {
+
+            is GetCylinders -> {
                 return Repository.getCylinders()
             }
 
-            is DashboardStateEvent.GetStatuses -> {
+            is GetStatuses -> {
                 return Repository.getStatuses()
             }
 
-            is DashboardStateEvent.GetArchiveStatuses -> {
+            is GetArchiveStatuses -> {
                 return Repository.getCylinders()
             }
-            is DashboardStateEvent.GetGraphDots -> {
+            is GetGraphDots -> {
                 return Repository.getGraphDots()
             }
 
@@ -52,11 +57,11 @@ class MainViewModel :ViewModel(){
 //                return Repository.updateStatus()
 //            }
 
-            is DashboardStateEvent.GetMetaData ->{
-                return Repository.getMetaData()
-            }
+//            is DashboardStateEvent.GetMetaData ->{
+//                return Repository.getMetaData()
+//            }
 
-            is DashboardStateEvent.None -> {
+            is None -> {
                 return AbsentLiveData.create()
             }
 
@@ -66,6 +71,15 @@ class MainViewModel :ViewModel(){
     fun setCylinderData(cylinders: List<Cylinder>){
         val update = getCurrentViewStateOrNew()
         update.cylinders = cylinders
+        _viewState.value = update
+    }
+
+    fun setMainData(main: MainDataDashboard){
+        val update = getCurrentViewStateOrNew()
+        update.cylinders = main.cylinders
+        update.statuses = main.statuses
+        update.archiveStatuses = main.archiveStatuses
+        update.graphDots = main.graphDots
         _viewState.value = update
     }
 
@@ -87,11 +101,11 @@ class MainViewModel :ViewModel(){
         _viewState.value = update
     }
 
-    fun setMetHadata(metaData: DashMetaData){
-        val update = getCurrentViewStateOrNew()
-        update.metadata = metaData
-        _viewState.value = update
-    }
+//    fun setMetHadata(metaData: DashMetaData){
+//        val update = getCurrentViewStateOrNew()
+//        update.metadata = metaData
+//        _viewState.value = update
+//    }
 
     private fun getCurrentViewStateOrNew(): DashboardViewState {
         return viewState.value?.let {

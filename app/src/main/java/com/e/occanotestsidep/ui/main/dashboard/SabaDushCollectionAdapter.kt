@@ -1,5 +1,6 @@
 package com.e.occanotestsidep.ui.main.dashboard
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.e.occanotestsidep.ui.main.alert.AlertFragment
@@ -14,29 +15,39 @@ class SabaDushCollectionAdapter(fragment: Fragment): FragmentStateAdapter(fragme
         fragment = when(position){
 
             0 -> {
+                Log.e("SabaDushCollectionAdapter","DashboardMainFragment" )
+
                 DashboardMainFragment()
 //                    .newInstance(0)
             }
             1 -> {
-                CylindersFragment()
-//                    .newInstance(1)
+                Log.e("SabaDushCollectionAdapter","CylindersFragment" )
+
+                CylindersFragment
+                    .newInstance(1)
             }
             2 -> {
-                DashFragment()
-//                    .newInstance(2)
+                Log.e("SabaDushCollectionAdapter","DashFragment" )
+                DashFragment.newInstance(2)
             }
             3 -> {
-                AlertFragment()
-//                    .newInstance(3)
+                Log.e("SabaDushCollectionAdapter","AlertFragment" )
+
+                AlertFragment.newInstance(3)
             }
             4 -> {
-                ArchivedAlertFragment()
-//                    .newInstance(4)
+                Log.e("SabaDushCollectionAdapter","ArchivedAlertFragment" )
+
+                ArchivedAlertFragment.newInstance(4)
             }
             5 -> {
+                Log.e("SabaDushCollectionAdapter","CalibrationFragment" )
+
                 CalibrationFragment()
             }
             6 -> {
+                Log.e("SabaDushCollectionAdapter","GraphsFragment" )
+
                 GraphsFragment()
             }
             else -> {

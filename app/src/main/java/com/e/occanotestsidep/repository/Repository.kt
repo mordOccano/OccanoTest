@@ -9,6 +9,7 @@ import com.e.occanotestsidep.api.responses.AlertSearchResponse
 import com.e.occanotestsidep.api.responses.AlertsListSearchResponse
 import com.e.occanotestsidep.api.responses.DashboardListSearchResponse
 import com.e.occanotestsidep.api.responses.GraphListSearchResponse
+import com.e.occanotestsidep.api.responses.report.ReportSearchResponse
 import com.e.occanotestsidep.persistence.AppDBK
 import com.e.occanotestsidep.persistence.StatusDao
 import com.e.occanotestsidep.session.SessionManager
@@ -34,6 +35,28 @@ object Repository {
     3. what is the features that i have to do. i dont mitravrev but if i have more calls from api
     well, i come back to jetpack.
      */
+
+    fun getReport(): LiveData<DataState<DashboardViewState>> {
+        return object: NetworkBoundResource<ReportSearchResponse, DashboardViewState>(){
+
+
+            override fun createCall(): LiveData<GenericApiResponse<ReportSearchResponse>> {
+                return MyRetrofitBuilder.apiService.getMain()
+            }
+
+            override fun handleApiSuccessResponse(response: ApiSuccessResponse<ReportSearchResponse>) {
+                result.value = DataState.data(
+                    null,
+                    DashboardViewState(
+                        cylinders = response.body.toCylinderRList(),
+                        statuses =  response.body.statuses,
+                        graphDots = response.body.plots
+                    )
+                )
+            }
+
+        }.asLiveData()
+    }
 
     fun getCylinders(): LiveData<DataState<DashboardViewState>> {
         return object: NetworkBoundResource<DashboardListSearchResponse, DashboardViewState>(){
@@ -138,25 +161,23 @@ object Repository {
     }
 
 
-    fun getMetaData(): LiveData<DataState<DashboardViewState>> {
-        return object: NetworkBoundResource<DashMetaData, DashboardViewState>(){
-
-            override fun handleApiSuccessResponse(response: ApiSuccessResponse<DashMetaData>) {
-                result.value = DataState.data(
-                    null,
-                    DashboardViewState(
-                        metadata = response.body
-                    )
-                )
-            }
-
-            override fun createCall(): LiveData<GenericApiResponse<DashMetaData>> {
-                return MyRetrofitBuilder.apiService.getMetaData()
-            }
-
-        }.asLiveData()
-    }
-
-
+//    fun getMetaData(): LiveData<DataState<DashboardViewState>> {
+//        return object: NetworkBoundResource<DashMetaData, DashboardViewState>(){
+//
+//            override fun handleApiSuccessResponse(response: ApiSuccessResponse<DashMetaData>) {
+//                result.value = DataState.data(
+//                    null,
+//                    DashboardViewState(
+//                        metadata = response.body
+//                    )
+//                )
+//            }
+//
+//            override fun createCall(): LiveData<GenericApiResponse<DashMetaData>> {
+//                return MyRetrofitBuilder.apiService.getMetaData()
+//            }
+//
+//        }.asLiveData()
+//    }
 
 }

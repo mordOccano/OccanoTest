@@ -57,6 +57,8 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.e("CylindersFragment","onCreateView")
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cylinders, container, false)
     }
@@ -64,11 +66,13 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = activity?.run {
+            Log.e("CylindersFragment","onViewCreated")
+
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid activity")
 
         subscribeObservers()
-        setPointers(view)
+        setPointers()
         initRv()
         setListeners()
 
@@ -177,6 +181,7 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.e("CylindersFragment","onAttach")
         try {
             dataStateListener = context as DataStateListener
         }catch (e: ClassCastException){
@@ -271,6 +276,18 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
     override fun onResume() {
         super.onResume()
+        subscribeObservers()
+        setPointers()
+        initRv()
+        setListeners()
+
+        gaugeForCalibration = GaugeForCalibration()
+        gaugeForCalibration.value = 1f
+        getGaugeToCalib()
+        setMaxGauges(maxSpeed)
+        setGauges()
+        Log.e("CylindersFragment","onResume")
+
 //        setPointers(requireView())
 //        setMaxGauges(maxSpeed)
 //        setGauges()
@@ -278,8 +295,8 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
     }
 
 
-    private fun setPointers(v:View) {
-        btnToDash = v.findViewById(R.id.btn_cyl_to_dash)
+    private fun setPointers() {
+        btnToDash = view?.findViewById(R.id.btn_cyl_to_dash)
 
     }
 

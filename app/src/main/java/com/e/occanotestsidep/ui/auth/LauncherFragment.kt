@@ -54,10 +54,11 @@ class LauncherFragment:Fragment(), View.OnClickListener{
                 findNavController().navigate(R.id.action_launcherFragment_to_settingsFragment)
             }
             R.id.btn_open_set_ip -> {
+                btn_open_set_ip.visibility = View.GONE
                 tv_get_ip.visibility = View.GONE
                 et_set_ip.visibility = View.VISIBLE
-                btn_open_set_ip.visibility = View.GONE
                 btn_set_ip.visibility = View.VISIBLE
+                btn_open_set_ip.visibility = View.VISIBLE
             }
             R.id.btn_set_ip -> {
                 btn_set_ip.isClickable = false
@@ -68,6 +69,7 @@ class LauncherFragment:Fragment(), View.OnClickListener{
                     tv_get_ip.text = "the current base ip is: ${ip}"
                     tv_get_ip.visibility = View.VISIBLE
                     start_btn.isClickable = true
+
                 }
             }
             R.id.btn_launcher_to_scan_ip ->{

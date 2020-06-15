@@ -81,6 +81,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRv()
+    setUI()
     }
 
     fun setUI(){
