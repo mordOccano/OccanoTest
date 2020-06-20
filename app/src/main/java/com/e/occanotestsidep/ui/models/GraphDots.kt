@@ -5,11 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class GraphDots(
-    var name: Int? = null,
-    var yList:List<Float>? = null
-
-//    var xList:List<XDots>? = null,
-//    var yList:List<YDots>? = null,
+    var name: Int? = 0,
+    var yList:List<Double> = ArrayList<Double>()
 ):Parcelable {
     override fun toString(): String {
         return "GraphDots(name=$name, yList=$yList)"

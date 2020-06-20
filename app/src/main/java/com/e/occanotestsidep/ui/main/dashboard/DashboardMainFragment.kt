@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.occanosidetest.utils.TopSpacingItemDecoration
 
@@ -99,8 +97,8 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
             dataStateListener.onDataStateChange(dataState)
 
             dataState.data?.let {
-                it.getContentIfNotHandled()?.cylinders?.let {
-                    viewModel.setCylinderData(it)
+                it.getContentIfNotHandled()?.let {
+                    viewModel.setMainData(it)
                 }
             }
 
@@ -135,12 +133,14 @@ class DashboardMainFragment : Fragment(),DasboardMainRvAdapter.Interaction {
     }
 
     private fun triggerGetCylindersEvent() {
-        viewModel.setStateEvent(DashboardStateEvent.GetMainDashboard())
+//        viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
+        viewModel.setStateEvent(DashboardStateEvent.GetReport())
     }
 
     override fun onResume() {
         super.onResume()
         Log.e("DashboardMainFragment","onAttach")
+        triggerGetCylindersEvent()
     }
 
     override fun onAttach(context: Context) {

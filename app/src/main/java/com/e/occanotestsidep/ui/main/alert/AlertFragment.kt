@@ -70,7 +70,6 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_alert, container, false)
-//        setUI()
     }
 
     override fun onResume() {
@@ -81,7 +80,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRv()
-    setUI()
+        setUI()
     }
 
     fun setUI(){
@@ -93,7 +92,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     }
 
     private fun triggerData() {
-        viewModel.setStateEvent(DashboardStateEvent.GetStatuses())
+        viewModel.setStateEvent(DashboardStateEvent.GetReport())
     }
 
     override fun onAttach(context: Context) {
@@ -118,44 +117,40 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     }
 
     private fun subscribeObservers() {
-        triggerData()
+//        triggerData()
+
+        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+
+            println("Debug: DashboardMainFragment DataState: ${dataState} ")
+
+            //handle loading and message
+            dataStateListener.onDataStateChange(dataState)
+
+//            dataState.data?.let {
+//                it.getContentIfNotHandled()?.let {
+//                    viewModel.setMainData(it)
+//                }
+//            }
+
+        })
+
 //        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-//            dataStateHandler.onDataStateChange(dataState)
+//            println("DEBUG: AlertFragment DataState: ${dataState}")
 //
-//            dataState.data?.let {event ->
-//                event.getContentIfNotHandled()?.let {viewState ->
-//                    Log.e("dataState","${viewState.statuses}")
-//                    viewState.statuses?.let {
-//                        viewModel.setStatusesData(it)
+//            // Handle Loading and Message
+////            dataStateListener.onDataStateChange(dataState)
+//
+//            // handle Data<T>
+//            dataState.data?.let{ event ->
+//                event.getContentIfNotHandled()?.let{ mainViewState ->
+//                    println("DEBUG: DataState: ${mainViewState}")
+//                    mainViewState.statuses?.let{
+//                       viewModel.setStatusesData(it)
+//
 //                    }
 //                }
 //            }
 //        })
-//
-//        viewModel.viewState.observe(viewLifecycleOwner, Observer {
-//            Log.e("viewState","${it.statuses}")
-//            it.statuses?.let {
-//                alertAdapter.submitList(it)
-//            }
-//        })
-
-        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-            println("DEBUG: AlertFragment DataState: ${dataState}")
-
-            // Handle Loading and Message
-//            dataStateListener.onDataStateChange(dataState)
-
-            // handle Data<T>
-            dataState.data?.let{ event ->
-                event.getContentIfNotHandled()?.let{ mainViewState ->
-                    println("DEBUG: DataState: ${mainViewState}")
-                    mainViewState.statuses?.let{
-                       viewModel.setStatusesData(it)
-
-                    }
-                }
-            }
-        })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer {viewState ->
             println("DEBUG: Setting statuses to RecyclerView: ${viewState}")

@@ -128,6 +128,7 @@
                     app:sv_speedometerWidth="20dp"
                     app:sv_trianglesColor="#BEC0C7"
                     app:sv_unit="Cyl 7"
+                    app:sv_trembleDegree="0.1"
                     app:sv_unitTextColor="#B0B8D8"
                     app:sv_unitUnderSpeedText="true" />
 
@@ -216,6 +217,7 @@
                     app:sv_speedometerWidth="20dp"
                     app:sv_trianglesColor="#BEC0C7"
                     app:sv_unit="Cyl 8"
+                    app:sv_trembleDegree="0.1"
                     app:sv_unitTextColor="#B0B8D8"
                     app:sv_unitUnderSpeedText="true" />
 

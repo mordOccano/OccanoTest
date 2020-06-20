@@ -1,20 +1,13 @@
 package com.e.occanotestsidep.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.e.occanosidetest.utils.StaticAddress.Companion.ERROR_CHECK_NETWORK_CONNECTION
-import com.e.occanosidetest.utils.StaticAddress.Companion.ERROR_UNKNOWN
-import com.e.occanosidetest.utils.StaticAddress.Companion.NETWORK_TIMEOUT
-import com.e.occanosidetest.utils.StaticAddress.Companion.TESTING_CACHE_DELAY
-import com.e.occanosidetest.utils.StaticAddress.Companion.TESTING_NETWORK_DELAY
-import com.e.occanosidetest.utils.StaticAddress.Companion.UNABLE_TODO_OPERATION_WO_INTERNET
-import com.e.occanosidetest.utils.StaticAddress.Companion.UNABLE_TO_RESOLVE_HOST
-import com.e.occanosidetest.utils.StaticAddress.Companion.isNetworkError
 import com.e.occanotestsidep.utils.*
-import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 abstract class NetworkBoundResource<ResponseObject, ViewStateType> {

@@ -25,7 +25,7 @@ class GraphSearchResponse (
 
     @Expose
     @SerializedName( "pressure/angle")
-    var graphDots: List<Float>
+    var graphDots: List<Double>
 ){
     fun toGraphDots():GraphDots{
         return GraphDots(

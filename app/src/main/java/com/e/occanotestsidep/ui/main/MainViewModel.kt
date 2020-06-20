@@ -1,6 +1,5 @@
 package com.e.occanotestsidep.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -74,7 +73,7 @@ class MainViewModel :ViewModel(){
         _viewState.value = update
     }
 
-    fun setMainData(main: MainDataDashboard){
+    fun setMainData(main: DashboardViewState){
         val update = getCurrentViewStateOrNew()
         update.cylinders = main.cylinders
         update.statuses = main.statuses

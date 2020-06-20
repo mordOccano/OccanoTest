@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:visibility="visible"
-        android:id="@+id/torque_graph" />
+        android:id="@+id/engine_graph" />
 
 
         </LinearLayout>

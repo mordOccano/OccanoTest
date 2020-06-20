@@ -118,18 +118,35 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
     }
 
     private fun subscribeObservers(){
+
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-            println("Debug: DashFragment DataState: ${dataState} ")
+
+            println("Debug: DashboardMainFragment DataState: ${dataState} ")
+
             //handle loading and message
             dataStateListener.onDataStateChange(dataState)
-
-            dataState.data?.let {
-                it.getContentIfNotHandled()?.cylinders?.let {
-                    viewModel.setCylinderData(it)
-                }
-            }
+//
+//            dataState.data?.let {
+//                it.getContentIfNotHandled()?.let {
+//                    viewModel.setMainData(it)
+//                }
+//            }
 
         })
+//
+//
+//        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+//            println("Debug: DashFragment DataState: ${dataState} ")
+//            //handle loading and message
+//            dataStateListener.onDataStateChange(dataState)
+//
+//            dataState.data?.let {
+//                it.getContentIfNotHandled()?.cylinders?.let {
+//                    viewModel.setCylinderData(it)
+//                }
+//            }
+//
+//        })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             viewState.cylinders.let {
@@ -217,7 +234,8 @@ class DashFragment : Fragment() ,View.OnClickListener, DashRvAdapter.Interaction
     override fun onClick(v: View?) {}
 
     private fun triggerGetCylindersEvent() {
-        viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
+//        viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
+        viewModel.setStateEvent(DashboardStateEvent.GetReport())
     }
 
     fun getAddress(){

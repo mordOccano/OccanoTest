@@ -38,7 +38,7 @@ class StaticAddress {
 //
 //
 
-        const val NETWORK_TIMEOUT = 6000L
+        const val NETWORK_TIMEOUT = 10000L
         const val CACHE_TIMEOUT = 2000L
 
         //TODO: set to shared preference
@@ -55,20 +55,6 @@ class StaticAddress {
         var max_injec_gauge = 4f
         var max_load_gauge = 150f
         var max_scave_gauge = 10f
-
-
-//        var calib_torque_gauge = 0f
-//        var calib_bmep_gauge = 0f
-//        var calib_break_power_gauge = 0f
-//        var calib_comp_pres_gauge = 0f
-//        var calib_engine_speed_gauge = 0f
-//        var calib_exhaust_gauge =  0f
-//        var calib_firing_pres_gauge = 0f
-//        var calib_fuel_gauge =  0f
-//        var calib_imep_gauge = 0f
-//        var calib_injec_gauge = 0f
-//        var calib_load_gauge =  0f
-//        var calib_scave_gauge = 0f
 
         var calib_torque_gauge = 0f
         var calib_bmep_gauge = 0f
@@ -96,19 +82,6 @@ class StaticAddress {
         var injection_timing_bool_calib: Boolean? = true
         var fuel_flow_rate_bool_calib: Boolean? = true
 
-        var local_mics_recv_current: String = ""
-        var local_mics_recv_previous: String = ""
-        var local_ir_recv_current: String = ""
-        var local_ir_recv_tester_previous: String = ""
-
-        var bool_mics_recv: Boolean = true
-        var bool_ir_recv: Boolean = true
-
-        var counter_compare_to_local: Int = 0
-        var sec_bool_counter_compare_to_local: Boolean = false
-
-        const val TESTING_NETWORK_DELAY = 0L
-        const val TESTING_CACHE_DELAY = 1000L
 
         const val UNABLE_TODO_OPERATION_WO_INTERNET =
             "Can't do that operation without an internet connection"
@@ -152,12 +125,3 @@ class StaticAddress {
     }
 
 }
-
-//for wherever korti
-//        fun URL_LOCAL_SHIP_REPORT() : String = "http://"+Ip+":4001/report/"
-//        fun URL_LOCAL_SHIP_CALIBRATION() : String = "http://"+Ip+":4001/manual_correction/"
-//        fun URL_LOCAL_SHIP_REGISTER() : String = "http://"+Ip+":4001/register/"
-
-//        fun URL_LOCAL_SHIP_REPORT() : String = "http://"+Ip+"/report/"
-//        fun URL_LOCAL_SHIP_CALIBRATION() : String = "http://"+Ip+"/manual_correction/"
-//        fun URL_LOCAL_SHIP_REGISTER() : String = "http://"+Ip+"/register/"

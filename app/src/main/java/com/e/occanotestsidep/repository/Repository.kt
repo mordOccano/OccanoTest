@@ -49,8 +49,8 @@ object Repository {
                     null,
                     DashboardViewState(
                         cylinders = response.body.toCylinderRList(),
-                        statuses =  response.body.statuses,
-                        graphDots = response.body.plots
+                        statuses =  response.body.ToAlertsRList(),
+                        graphDots = response.body.ToPlotsRList()
                     )
                 )
             }

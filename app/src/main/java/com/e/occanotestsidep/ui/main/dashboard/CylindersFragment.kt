@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.occanosidetest.utils.TopSpacingItemDecoration
 
@@ -27,7 +26,8 @@ import com.e.occanotestsidep.ui.models.GaugeForCalibration
 //import com.e.occanotestsidep.persistence.Graph.repoGraph.CombPresRepository
 //import com.e.occanotestsidep.persistence.Graph.repoGraph.FuelRepository
 import kotlinx.android.synthetic.main.fragment_cylinders.*
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch
 import java.lang.ClassCastException
 
@@ -81,24 +81,39 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
         getGaugeToCalib()
         setMaxGauges(maxSpeed)
         setGauges()
-        triggerGetCylindersEvent()
+        triggerEvent()
     }
 
     private fun subscribeObservers(){
+
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
 
-            println("Debug: CylindersFragment DataState: ${dataState} ")
+            println("Debug: DashboardMainFragment DataState: ${dataState} ")
 
             //handle loading and message
             dataStateListener.onDataStateChange(dataState)
 
-            dataState.data?.let {
-                it.getContentIfNotHandled()?.cylinders?.let {
-                    viewModel.setCylinderData(it)
-                }
-            }
+//            dataState.data?.let {
+//                it.getContentIfNotHandled()?.let {
+//                    viewModel.setMainData(it)
+//                }
+//            }
 
         })
+//        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
+//
+//            println("Debug: CylindersFragment DataState: ${dataState} ")
+//
+//            //handle loading and message
+//            dataStateListener.onDataStateChange(dataState)
+//
+//            dataState.data?.let {
+//                it.getContentIfNotHandled()?.cylinders?.let {
+//                    viewModel.setCylinderData(it)
+//                }
+//            }
+//
+//        })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
 
@@ -116,24 +131,21 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
     private fun prepareListToCylindersComparison(it: List<Cylinder>?) : List<List<Gauge>> {
 
-        GlobalScope.launch {
+        CoroutineScope(Default).launch {
             if (it != null) {
             for (i in it) {
-                with(listToComparison) {
-                    rpm_gaugeList.add(i.numOfCylInEngine - 1, i.rpm)
-                    exhaust_temperature_gaugeList.add(i.numOfCylInEngine - 1, i.exhaust_temperature)
-                    load_gaugeList.add(i.numOfCylInEngine - 1, i.load)
-                    firing_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.firing_pressure)
-                    scavenging_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.scavenging_pressure)
-                    compression_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.compression_pressure)
-                    break_power_gaugeList.add(i.numOfCylInEngine - 1, i.break_power)
-                    imep_gaugeList.add(i.numOfCylInEngine - 1, i.imep)
-                    Torque_engine_gaugeList.add(i.numOfCylInEngine - 1, i.torque_engine)
-                    bmep_gaugeList.add(i.numOfCylInEngine - 1, i.bmep)
-                    injection_timing_gaugeList.add(i.numOfCylInEngine - 1, i.injection_timing)
-                    fuel_flow_rate_gaugeList.add(i.numOfCylInEngine - 1, i.fuel_flow_rate)
-                }
-
+                    listToComparison.rpm_gaugeList.add(i.numOfCylInEngine - 1, i.rpm)
+                    listToComparison.exhaust_temperature_gaugeList.add(i.numOfCylInEngine - 1, i.exhaust_temperature)
+                    listToComparison.load_gaugeList.add(i.numOfCylInEngine - 1, i.load)
+                    listToComparison.firing_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.firing_pressure)
+                    listToComparison.scavenging_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.scavenging_pressure)
+                    listToComparison.compression_pressure_gaugeList.add(i.numOfCylInEngine - 1, i.compression_pressure)
+                    listToComparison.break_power_gaugeList.add(i.numOfCylInEngine - 1, i.break_power)
+                    listToComparison.imep_gaugeList.add(i.numOfCylInEngine - 1, i.imep)
+                    listToComparison.Torque_engine_gaugeList.add(i.numOfCylInEngine - 1, i.torque_engine)
+                    listToComparison.bmep_gaugeList.add(i.numOfCylInEngine - 1, i.bmep)
+                    listToComparison.injection_timing_gaugeList.add(i.numOfCylInEngine - 1, i.injection_timing)
+                    listToComparison.fuel_flow_rate_gaugeList.add(i.numOfCylInEngine - 1, i.fuel_flow_rate)
             }
         }
 
@@ -152,8 +164,6 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
                listToComparison.injection_timing_gaugeList.toList(),
                listToComparison.fuel_flow_rate_gaugeList.toList()
         )
-
-
 
     Log.e(
         "prepareListToCylindersComparison",
@@ -175,8 +185,8 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
         }
     }
 
-    private fun triggerGetCylindersEvent() {
-        viewModel.setStateEvent(DashboardStateEvent.GetCylinders())
+    private fun triggerEvent() {
+        viewModel.setStateEvent(DashboardStateEvent.GetReport())
     }
 
     override fun onAttach(context: Context) {
@@ -291,7 +301,7 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 //        setPointers(requireView())
 //        setMaxGauges(maxSpeed)
 //        setGauges()
-        triggerGetCylindersEvent()
+        triggerEvent()
     }
 
 
