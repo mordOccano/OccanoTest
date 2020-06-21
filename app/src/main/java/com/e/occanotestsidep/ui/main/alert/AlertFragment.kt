@@ -194,6 +194,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
         alertsListForRv.remove(alert)
         val data = alert.alert_id
         submit(data)
+        viewModel.archiveAlertList.add(alert)
 //        viewModel.setStateEvent(DashboardStateEvent.GetStatuses())
         //update the api that status acknowlkedged, in the future
 //            GlobalScope.launch {

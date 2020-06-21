@@ -85,6 +85,7 @@ class ArchivedAlertFragment : Fragment(), ArchivedAlertAdapter.Interaction {
             addItemDecoration(topSpacingItemDecoration)
             alertAdapter =
                 ArchivedAlertAdapter(this@ArchivedAlertFragment)
+            alertAdapter.submitList(viewModel.archiveAlertList.toList())
             adapter = alertAdapter
         }
     }
@@ -115,7 +116,6 @@ class ArchivedAlertFragment : Fragment(), ArchivedAlertAdapter.Interaction {
             viewState.archiveStatuses?.let {statuses ->
                 // set BlogPosts to RecyclerView
                 println("DEBUG: Setting statuses to RecyclerView: ${statuses}")
-                alertAdapter.submitList(statuses)
             }
         })
     }

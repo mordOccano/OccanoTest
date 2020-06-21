@@ -38,7 +38,7 @@ class StaticAddress {
 //
 //
 
-        const val NETWORK_TIMEOUT = 10000L
+        const val NETWORK_TIMEOUT = 20000L
         const val CACHE_TIMEOUT = 2000L
 
         //TODO: set to shared preference

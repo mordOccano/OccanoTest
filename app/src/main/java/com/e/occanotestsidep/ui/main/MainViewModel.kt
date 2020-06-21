@@ -15,6 +15,8 @@ class MainViewModel :ViewModel(){
     private val _stateEvent : MutableLiveData<DashboardStateEvent> = MutableLiveData()
     private val _viewState: MutableLiveData<DashboardViewState> = MutableLiveData()
 
+    var archiveAlertList: ArrayList<Alert> = ArrayList()
+
     val viewState:LiveData<DashboardViewState>
     get() = _viewState
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -39,6 +40,7 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
     var shipList =  ArrayList<Ship>()
     lateinit var loginAdapter:LoginAdapter
 
+    var clickCounter:Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +62,9 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
 
     private fun setListeners(view: View) {
         view.findViewById<ImageButton>(R.id.buttonLogin).setOnClickListener(this)
+        view.findViewById<ImageButton>(R.id.btn_add_vessel).setOnClickListener(this)
+        view.findViewById<CardView>(R.id.btn_background_add_vessel).setOnClickListener(this)
+
     }
 
     private fun initRv() {
@@ -83,7 +88,7 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
         shipList.add(Ship(6, "PRUDENT WARRIOR",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	6,	"g",	"70",	"e",	"c",	"9753545",	"Tanker",	"2017",	"274",	   "48","149992",	"81287", false))
         shipList.add(Ship(7, "RELIABLE WARRIOR",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	6,	"g",	"70",	"e",	"c",	"9753557",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
         //FAKE ABA SHEL THE FAKE
-        shipList.add(Ship(7, "TARAGGONA ZIM",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	8,	"g",	"70",	"e",	"c",	"9753567",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
+        shipList.add(Ship(8, "TARAGGONA ZIM",	"HYUNDAI MAN B&W 6G70 ME-C9.5",	"7518.3",	8,	"g",	"70",	"e",	"c",	"9753567",	"Tanker",	"2017",	"274.22","48",  "149992",	"81287", false))
     }
 
     override fun onItemSelected(position: Int, item: Ship) {
@@ -119,10 +124,6 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
             }) {
             override fun getBodyContentType(): String {
                 return "application/json; charset=utf-8"
-            }
-
-            override fun getParamsEncoding(): String {
-                return super.getParamsEncoding()
             }
 
             @Throws(AuthFailureError::class)
@@ -178,8 +179,92 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
                     findNavController().navigate(R.id.action_loginFragment_to_loadingFragment)}
 //                Navigation.findNavController(v).navigate(R.id.action_loadFragment_to_dashboardMainFragment)
             }
+
+            R.id.btn_background_add_vessel -> {
+
+                login_title.text = "Add Vessel"
+                btn_background_add_vessel.visibility = View.GONE
+                buttonLogin.visibility = View.GONE
+
+                    //rv gone
+                    rv_login.visibility = View.GONE
+                    //edit texts visible
+
+                    sv_et_forms.visibility = View.VISIBLE
+
+                add_breadth_extreme.error = "Enter valid value, ex. 48"
+                add_dead_weight.error = "Enter valid value, ex. 149992 (t)"
+                add_diameter.error = "Enter valid value, ex. 70 (cm)"
+                add_displacement.error = "Enter valid value, ex. 7518.3"
+                add_gross_tonnage.error = "Enter valid value, ex. 81287"
+                add_imo.error = "Enter valid value, ex. 9753567"
+                add_length.error = "Enter valid value, ex. 274.22"
+                add_name_of_ship.error = "Enter valid value, ex. ZIM"
+                add_num_of_cyl.error = "Enter valid value, ex. 6"
+                add_year_built.error = "Enter valid value, ex. 2017"
+
+//                btn_add_vessel.isClickable = !((add_breadth_extreme.text.isEmpty() )
+//                        || (add_dead_weight.text.isEmpty())
+//                        || (add_diameter.text.isEmpty())
+//                        || (add_displacement.text.isEmpty())
+//                        || (add_gross_tonnage.text.isEmpty())
+//                        || (add_imo.text.isEmpty())
+//                        || (add_length.text.isEmpty())
+//                        || (add_name_of_ship.text.isEmpty())
+//                        || (add_num_of_cyl.text.isEmpty())
+//                        || (add_year_built.text.isEmpty()))
+//
+                btn_add_vessel.visibility = View.VISIBLE
+                }
+
+                R.id.btn_add_vessel -> {
+
+                    if (add_breadth_extreme.text.isNullOrEmpty() ) add_breadth_extreme.setText("48")
+                    if (add_dead_weight.text.isNullOrEmpty())  add_dead_weight.setText("149992")
+                    if (add_diameter.text.isNullOrEmpty())add_diameter.setText("70")
+                    if (add_displacement.text.isNullOrEmpty())add_displacement.setText("7518.3")
+                    if (add_gross_tonnage.text.isNullOrEmpty())add_gross_tonnage.setText("81287")
+                    if (add_imo.text.isNullOrEmpty())add_imo.setText("9753567")
+                    if (add_length.text.isNullOrEmpty())add_length.setText("274.22")
+                    if (add_name_of_ship.text.isNullOrEmpty())add_name_of_ship.setText("name")
+                    if (add_num_of_cyl.text.isNullOrEmpty())add_num_of_cyl.setText("6")
+                    if (add_year_built.text.isNullOrEmpty())add_year_built.setText("2017")
+
+
+
+                    login_title.text = "ALL Vessel"
+                    var ship = Ship(9,add_name_of_ship.text.toString(),"0",add_displacement.text.toString(),
+                        add_num_of_cyl.text.toString().toInt(),"",add_diameter.text.toString(),"",
+                        "",add_imo.text.toString(),"",add_year_built.text.toString(),add_length.text.toString(),
+                        add_breadth_extreme.text.toString(),add_dead_weight.text.toString(),add_gross_tonnage.text.toString(),true)
+//                    selectedShip = ship
+                    shipList.add(ship)
+                    loginAdapter.notifyDataSetChanged()
+
+                    sv_et_forms.visibility = View.GONE
+//                    //edit texts visible
+//                    add_breadth_extreme.visibility = View.GONE
+//                    add_dead_weight.visibility = View.GONE
+//                    add_diameter.visibility = View.GONE
+//                    add_displacement.visibility = View.GONE
+//                    add_gross_tonnage.visibility = View.GONE
+//                    add_imo.visibility = View.GONE
+//                    add_length.visibility = View.GONE
+//                    add_name_of_ship.visibility = View.GONE
+//                    add_num_of_cyl.visibility = View.GONE
+//                    add_year_built.visibility = View.GONE
+
+                    rv_login.visibility = View.VISIBLE
+
+                    btn_background_add_vessel.visibility = View.VISIBLE
+                    buttonLogin.visibility = View.VISIBLE
+                    btn_add_vessel.visibility = View.GONE
+
+                }
+            }
+
         }
-    }
+
 
     fun getAddress(){
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
