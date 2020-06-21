@@ -109,7 +109,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
             layoutManager = LinearLayoutManager(this@AlertFragment.requireContext())
             val topSpacingItemDecoration = TopSpacingItemDecoration(10)
             addItemDecoration(topSpacingItemDecoration)
-            ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(status_rv_new_notification)
+            ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rv_alert)
             alertAdapter =
                 AlertAdapter(this@AlertFragment)
             adapter = alertAdapter
@@ -117,7 +117,6 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
     }
 
     private fun subscribeObservers() {
-//        triggerData()
 
         viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
 
@@ -134,24 +133,6 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
 
         })
 
-//        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-//            println("DEBUG: AlertFragment DataState: ${dataState}")
-//
-//            // Handle Loading and Message
-////            dataStateListener.onDataStateChange(dataState)
-//
-//            // handle Data<T>
-//            dataState.data?.let{ event ->
-//                event.getContentIfNotHandled()?.let{ mainViewState ->
-//                    println("DEBUG: DataState: ${mainViewState}")
-//                    mainViewState.statuses?.let{
-//                       viewModel.setStatusesData(it)
-//
-//                    }
-//                }
-//            }
-//        })
-
         viewModel.viewState.observe(viewLifecycleOwner, Observer {viewState ->
             println("DEBUG: Setting statuses to RecyclerView: ${viewState}")
 
@@ -159,7 +140,7 @@ class AlertFragment : Fragment(), AlertAdapter.Interaction {
                 // set BlogPosts to RecyclerView
                 println("DEBUG: Setting statuses to RecyclerView: ${statuses}")
                 prepareAlertList(statuses)
-                alertAdapter.submitList(statuses)
+                alertAdapter.submitList(alertsListForRv)
             }
         })
     }

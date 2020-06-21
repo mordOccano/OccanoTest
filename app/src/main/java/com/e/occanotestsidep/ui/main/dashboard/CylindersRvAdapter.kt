@@ -45,13 +45,9 @@ class CylindersRvAdapter(private val interaction: Interaction? = null) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        if (position == 0){
-            return
-        }else {
-            var temPostion = position
-            if (position > 11) {
-                temPostion = position % 12
+        var temPostion = position
+            if (position > 10) {
+                temPostion = position % 11
             }
 
             when (holder) {
@@ -59,7 +55,7 @@ class CylindersRvAdapter(private val interaction: Interaction? = null) :
                     holder.bind(differ.currentList[temPostion])
                 }
             }
-        }
+
     }
 
     override fun getItemCount(): Int{

@@ -28,9 +28,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_subDadhboardContainer"
-            app:destination="@id/subDadhboardContainer" />
-
+            android:id="@+id/action_loginFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -59,5 +58,14 @@
         <action
             android:id="@+id/action_scanIpFragment_to_launcherFragment"
             app:destination="@id/launcherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.e.occanotestsidep.ui.main.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/action_loadingFragment_to_subDadhboardContainer"
+            app:destination="@id/subDadhboardContainer" />
     </fragment>
 </navigation>

@@ -175,7 +175,7 @@ class LoginFragment : Fragment(),LoginAdapter.Interaction, View.OnClickListener{
               }
 
                 if (findNavController().currentDestination?.id == R.id.loginFragment) {
-                    findNavController().navigate(R.id.action_loginFragment_to_subDadhboardContainer)}
+                    findNavController().navigate(R.id.action_loginFragment_to_loadingFragment)}
 //                Navigation.findNavController(v).navigate(R.id.action_loadFragment_to_dashboardMainFragment)
             }
         }

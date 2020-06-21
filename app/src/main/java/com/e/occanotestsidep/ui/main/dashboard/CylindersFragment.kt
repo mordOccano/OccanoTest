@@ -71,14 +71,15 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
             ViewModelProvider(this).get(MainViewModel::class.java)
         }?:throw Exception("Invalid activity")
 
-        subscribeObservers()
-        setPointers()
-        initRv()
-        setListeners()
 
-        gaugeForCalibration = GaugeForCalibration()
-        gaugeForCalibration.value = 1f
-        getGaugeToCalib()
+        setPointers()
+        subscribeObservers()
+        initRv()
+//        setListeners()
+
+//        gaugeForCalibration = GaugeForCalibration()
+//        gaugeForCalibration.value = 1f
+//        getGaugeToCalib()
         setMaxGauges(maxSpeed)
         setGauges()
         triggerEvent()
@@ -286,22 +287,23 @@ class CylindersFragment : Fragment() ,View.OnClickListener, CylindersRvAdapter.I
 
     override fun onResume() {
         super.onResume()
-        subscribeObservers()
-        setPointers()
-        initRv()
-        setListeners()
-
-        gaugeForCalibration = GaugeForCalibration()
-        gaugeForCalibration.value = 1f
-        getGaugeToCalib()
         setMaxGauges(maxSpeed)
         setGauges()
+//        setPointers()
+//        initRv()
+//        setListeners()
+
+//        gaugeForCalibration = GaugeForCalibration()
+//        gaugeForCalibration.value = 1f
+//        getGaugeToCalib()
+
         Log.e("CylindersFragment","onResume")
 
 //        setPointers(requireView())
 //        setMaxGauges(maxSpeed)
 //        setGauges()
         triggerEvent()
+
     }
 
 
