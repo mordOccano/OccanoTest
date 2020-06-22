@@ -28,9 +28,9 @@ class CalibrationFragment :Fragment(),View.OnClickListener, CalibrationRvAdapter
     lateinit var rulerValuePicker: RulerValuePicker
     private var ip:String? = null
     lateinit var calibrationRvAdapter: CalibrationRvAdapter
-    private var tempList:ArrayList<CalibGauge> = ArrayList()
-    private var rvList:ArrayList<CalibGauge> = ArrayList()
-    private lateinit var currentTemp:CalibGauge
+    var tempList = ArrayList<CalibGauge>()
+    var rvList = ArrayList<CalibGauge>()
+    var currentTemp = CalibGauge()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,10 +45,11 @@ class CalibrationFragment :Fragment(),View.OnClickListener, CalibrationRvAdapter
         currentTemp = CalibGauge()
 
         //TODO("do it properly, first the request as much as possible")
-        setListeners()
+
         getAddress()
         initUI()
-        litenToRule()
+        setListeners()
+//        litenToRule()
         initRV()
         initFakeRvList()
     }
@@ -177,7 +178,7 @@ class CalibrationFragment :Fragment(),View.OnClickListener, CalibrationRvAdapter
 
 
     override fun onItemSelected(position: Int, item: CalibGauge) {
-        for (tempItem in tempList){
+        for (tempItem in rvList){
             tempItem.isSelected = false
         }
         item.isSelected = true
@@ -194,7 +195,6 @@ class CalibrationFragment :Fragment(),View.OnClickListener, CalibrationRvAdapter
             0-> {
                 rulerValuePicker.setMinMaxValue(0, StaticAddress.max_torque_gauge.toInt())
                 //TODO: change to the average from viewmodel
-
                 rulerValuePicker.selectValue(0)
                 calib_d_gauge_name.text = "torque"
                 calib_gauge.setUnit("KN/m")

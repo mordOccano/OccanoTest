@@ -70,7 +70,7 @@ class SubDadhboardContainer : Fragment() {
                         tab.setIcon(R.drawable.ic_history_black_24dp)
                     }
                     5 -> {
-                        tab.text = "Report"
+                        tab.text = "Calibrate"
                         tab.setIcon(R.drawable.ic_report_problem_black_24dp)
                     }
                     6 -> {

@@ -17,7 +17,11 @@ import java.util.prefs.PreferenceChangeListener
 
 class MainActivity : AppCompatActivity(),DataStateListener{
 
-    var ip:String = "office.occano.io"
+    var tempIp: String = ""
+    var ip: String = ""
+    get() {
+       return getIpAddress()
+    }
 
     lateinit var viewModel: MainViewModel
 
@@ -27,10 +31,15 @@ class MainActivity : AppCompatActivity(),DataStateListener{
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        getIpAddress()
+    }
+
+    fun getIpAddress(): String{
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         preferences?.apply {
-            ip = getString("ip","office.occano.io")!!
+            tempIp = getString("ip","office.occano.io")!!
         }
+        return tempIp
     }
 
     override fun onDataStateChange(dataState: DataState<*>?) {

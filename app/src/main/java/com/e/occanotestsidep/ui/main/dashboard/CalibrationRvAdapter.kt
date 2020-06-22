@@ -17,7 +17,7 @@ class CalibrationRvAdapter(private val interaction: Interaction? = null) :
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CalibGauge>() {
 
         override fun areItemsTheSame(oldItem: CalibGauge, newItem: CalibGauge): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.value == newItem.value
         }
 
         override fun areContentsTheSame(oldItem: CalibGauge, newItem: CalibGauge): Boolean {

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 
 abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
@@ -19,14 +20,19 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
 
         GlobalScope.launch(IO){
 
-            withContext(Main){
-                val apiResponse = createCall()
-                result.addSource(apiResponse) { response ->
-                    result.removeSource(apiResponse)
+            try {
+                withContext(Main){
+                    val apiResponse = createCall()
+                    result.addSource(apiResponse) { response ->
+                        result.removeSource(apiResponse)
 
-                    handleNetworkCall(response)
+                        handleNetworkCall(response)
+                    }
                 }
+            }catch (e: Exception){
+                e.printStackTrace()
             }
+
         }
     }
 
